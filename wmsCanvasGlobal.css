@@ -119,20 +119,20 @@ BODY
 #header-logo, #header.no-user #header-logo
 {
 	background: transparent url("images/interior-logo-glow.png") no-repeat 0% / 201px 45px !important;
-	top: 26px;
-	left: 13px;
-	height: 45px;
-	width: 201px;
+	top: 26px !important;
+	left: 13px !important;
+	height: 45px !important;
+	width: 201px !important;
 }
 /*if you replace the left canvas logo, move a smaller one to the right side of the header. include background-size to ensure it displays correctly on ipads*/
 #header-logo-secondary
 {
 	background: transparent url("images/interior-logo-williams.png") no-repeat 0% / 162px 30px !important;
-	display: block;
-	bottom: -1px;
-	right: 10px;
-	height: 30px;
-	width: 162px;
+	display: block !important;
+	bottom: -1px !important;
+	right: 10px !important;
+	height: 30px !important;
+	width: 162px !important;
 }
 /*if your logo is bigger, you can scoot the menu to the right with this*/
 #menu
