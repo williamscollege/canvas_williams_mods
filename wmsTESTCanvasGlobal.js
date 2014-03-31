@@ -153,16 +153,8 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Williams Overrides: MISC
+	 ** Williams UI: INTERNAL PAGES
 	 ***********************************************/
-	// Footer Links: Edit
-	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/help/glow/').prop('target','_blank');
-	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/help/glow/terms-of-service/').prop('target','_blank');
-
-	// Footer Links: Add
-	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
-	// Set CSS: $("BODY.modal #modal-box").css("cssText", "background: #FFFFFF !important");
-
 	// UI Internal pages: Correct gap between buckets and colorbar decorations
 	var wmsCoursesLabel = $("#courses_menu_item.menu-item A.menu-item-title").text();
 	if (wmsCoursesLabel.match(/Groups/ig)){
@@ -176,6 +168,18 @@ $(document).ready(function () {
 		// Assignments (lacking arrow)
 		$("#assignments_menu_item").css("cssText", "margin-right: 10px !important;");
 	};
+
+
+	/***********************************************
+	 ** Williams Overrides: Footer Links
+	 ***********************************************/
+	// Footer Links: Edit
+	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/help/glow/').prop('target','_blank');
+	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/help/glow/terms-of-service/').prop('target','_blank');
+
+	// Footer Links: Add
+	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
+	// Set CSS: $("BODY.modal #modal-box").css("cssText", "background: #FFFFFF !important");
 
 
 }); // END OF: (document).ready
