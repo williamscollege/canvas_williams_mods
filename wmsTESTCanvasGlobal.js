@@ -84,7 +84,7 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Williams Feature: Add Presentation Mode (hide top, left and right divs from page)
 	 ***********************************************/
-	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><a id="wms_presentation_mode" class="btn-mini" href="#"><i class="icon-off"></i> Presentation Mode</a></li>');
+	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><a id="wms_presentation_mode" class="btn-mini" href="#"><i class="icon-off"></i> Presentation Mode</a>&nbsp;&nbsp;</li>');
 
 	$( "#wms_presentation_mode" ).toggle(function() {
 		$("a#wms_presentation_mode").html('<a id="wms_presentation_mode" class="btn-mini wmsFloatLink" href="#"><i class="icon-end"></i> Exit Presentation Mode</a>');
