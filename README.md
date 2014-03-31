@@ -2,11 +2,14 @@ canvas_williams_mods
 -------
 
 [https://github.com/williamscollege/canvas_williams_mods](https://github.com/williamscollege/canvas_williams_mods)
+
 Summary: A collection of code for customizing the Instructure Canvas LMS. Separate files exist for independently testing on production and test servers.
+
 Author: Developed by David Keiser-Clark (dwk2@williams.edu) for the Office for Information Technology at Williams College
+
 Follow: If you have collaborative ideas or want to be notified of changes, please email me.
 
-#### Demo
+#### DEMO
 
 Coming Soon...
 
@@ -56,12 +59,14 @@ We also created a top navigation design for our internal pages. Please refrain f
 Overrides to point Help and Terms footer links to our own pages
 NOTE: The CSS file also contains additional overrides to hide Canvas links for their Twitter, FaceBook, etc.
 
-#### Dependencies
+#### DEPENDENCIES
 
-jQuery 1.7
+Canvas already provides jQuery
 
-#### License
+#### LICENSE
 
 Copyright (c) 2014 David Keiser-Clark
+
 Dual licensed under the MIT and GPL licenses.
+
 Free as in Bacon.
