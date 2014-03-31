@@ -1,0 +1,7 @@
+*.cfg.php
+*~
+*.bak
+temp
+*/temp
+.idea
+*.DS_Store
