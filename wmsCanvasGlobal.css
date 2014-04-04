@@ -113,7 +113,12 @@ BODY
 /*Make sure your logo doesn't bleed onto the content below for open registration courses*/
 #header.no-user
 {
-	/*[disabled]min-height:70px;*/
+	min-height:70px !important;
+}
+/*Make sure your secondary logo sits where it should*/
+#header.no-user #header-logo-secondary
+{
+	bottom: -45px !important;
 }
 /*replace the canvas logo with your logo*/
 #header-logo, #header.no-user #header-logo
