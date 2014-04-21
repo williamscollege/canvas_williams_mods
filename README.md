@@ -1,67 +1,67 @@
-canvas_williams_mods
--------
+# Williams College: Canvas Mods
 
-[https://github.com/williamscollege/canvas_williams_mods](https://github.com/williamscollege/canvas_williams_mods)
-
-**Summary:** A collection of code for customizing the Instructure Canvas LMS. Separate files exist for independently testing on production and test servers.
+**Summary:** Various modifications and customizations for our Instructure Canvas learning management system (LMS). Separate files make it easier to test independently on live and test servers.
 
 **Author:** Developed by David Keiser-Clark (dwk2@williams.edu) for the Office for Information Technology at Williams College
 
 **Follow:** If you have collaborative ideas or want to be notified of changes, please email me.
 
-#### DEMO
+**GitHub:** [Williams College: canvas_williams_mods](https://github.com/williamscollege/canvas_williams_mods)
 
-Coming Soon...
+## SCREENSHOTS
 
-#### FILES
+ - [People: Add Face Book and Learning Mode](http://www.screencast.com/t/KFZZo4VF2 "People: Add Face Book and Learning Mode") (screenshot)
+ - [Add Presenter View](http://www.screencast.com/t/mclVJfL28 "Add Presenter View") (screenshot)
 
-Production Server:
- - /images
- - wmsCanvasGlobal.css
- - wmsCanvasGlobal.js
+## FEATURES
 
-Test Server: 
- - /images
- - wmsTESTCanvasGlobal.css
- - wmsTESTCanvasGlobal.js
+#### People: Add Face Book and Learning Mode
 
+ - Add Button: Automatically insert a "Face Book" button on Canvas' "People" page
+ - Larger Images: Creates a grid of larger images for viewing course participants
+ - Learning Mode: Optionally show/hide all participant names (useful for memorizing names)
+ - Printer: Enabled photos to display in print mode (works for Chrome and Safari, while FF and IE require manual clientside browser selection to "Print background images")
+ - Printer: Removed hyperlink urls from displaying in print mode (All browsers)
+ - Requires: Only these two JS/CSS global override files (wmsCanvasGlobal.css, wmsCanvasGlobal.js)
+ - Future plans: I plan to add an LTI to inject the class year into each student's info box
 
-#### FEATURES
+#### Add Presenter View (zoom content area; hide all other columns)
 
-#### Williams Feature: People: Add Face Book, Learning Mode
+ - Add Link: Automatically insert a "Presenter View" hyperlink on the right-side of the "breadcrumbs" navigation
+ - Zoom: Increase zoom by 50% (transform scale is customizable)
+ - Hide: Display only center column (hide: top, left, right, footer)
+ - Display All: Increase height dynamically to prevent zoomed page from being inappropriately cut off
+ - Resolution: Limit width to the default resolution of our wired classrooms (1024px)
+ - Exit: Easily return to "normal mode" via "exit" button on left side of screen
+ - Note: Hidden content remains in the document object model, but is hidden via CSS. This means the page still functions correctly
+ - Note: The "Presenter View" hyperlink will appear on the right-side of all pages that contain the breadcrumbs navigation item
+ - Intended Usage: classroom projector
 
-This feature inserts a "Face Book" button on the People section, which enables larger images of course participants.
-This feature also includes a useful "Learning Mode" hyperlink which will hide all participant names, enabling you to view their name only by hovering over their image.
-Future plans: I plan to also add the class year to each student's info box.
+#### Customize UI: LOGIN PAGE
 
-#### Williams Feature: Add Presentation Mode (hide top, left and right divs from page)
+ - Mobile: Completely overhauled the default mobile login page
+ - Browser: Completely overhauled the default browser login page
+ - Please refrain from reusing our design; you may use the code to create your own distinct override
 
-This feature simply hides the left, right and top sections of the page to maximize use of the main area for full screen presentation (i.e. via digital projector).
-All content remains in the document object model, but is hidden via CSS. This means the page still functions correctly. 
-A floating link at top right of page enables easy ability to return to "normal mode".
-Note that the "Presentation Mode" hyperlink will appear on the right-side of all pages that contain the breadcrumbs navigation item.
+#### Customize UI: INTERNAL PAGES
 
-#### Williams Feature: Add Google Analytics
+ - Browser: Completely overhauled the default top navigation design of internal pages
+ - Please refrain from reusing our design; you may use the code to create your own distinct override
 
-Added code to enable our Google Analytics to track Canvas pages. 
-Simply swap in your own Google Analytics "setAccount" name.
+#### Footer/Branding Link Overrides
 
-#### Williams UI: LOGIN PAGE
+ - Created overrides to point Help and Terms footer links to our own pages, and hide Canvas Twitter/FaceBook links
 
-We completely overhauled our login page. Please refrain from reusing our design; you may use the code to create your own distinct override.
+#### Add Google Analytics
 
-#### Williams UI: INTERNAL PAGES
-
-We also created a top navigation design for our internal pages. Please refrain from reusing our design; you may use the code to create your own distinct override.
-
-#### Williams Overrides: Footer Links
-
-Overrides to point Help and Terms footer links to our own pages
-NOTE: The CSS file also contains additional overrides to hide Canvas links for their Twitter, FaceBook, etc.
+ - Added code to enable our Google Analytics to track Canvas pages
+ - Simply swap in your own Google Analytics "setAccount" name
 
 #### DEPENDENCIES
 
-Canvas already provides jQuery
+ - Canvas Live Server requires: wmsCanvasGlobal.css, wmsCanvasGlobal.js, /images
+ - Canvas Test Server requires: wmsTESTCanvasGlobal.css, wmsTESTCanvasGlobal.js, /images
+ - Canvas already provides jQuery
 
 #### LICENSE
 

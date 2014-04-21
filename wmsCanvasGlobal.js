@@ -1,7 +1,7 @@
 $(document).ready(function () {
 
 	/***********************************************
-	 ** Williams Feature: People: Add Face Book, Learning Mode
+	 ** People: Add Face Book and Learning Mode
 	 ***********************************************/
 	// Url must match this pattern
 	if (window.location.href.match(/\/courses\/\d+\/users/ig)) {
@@ -82,45 +82,58 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Williams Feature: Add Presentation Mode (hide top, left and right divs from page)
+	 ** Add Presenter View (zoom content area; hide all other columns)
 	 ***********************************************/
-	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><a id="wms_presentation_mode" class="btn-mini" href="#"><i class="icon-off"></i> Presentation Mode</a>&nbsp;&nbsp;</li>');
+	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div></li>');
 
-	$( "#wms_presentation_mode" ).toggle(function() {
-		$("a#wms_presentation_mode").html('<a id="wms_presentation_mode" class="btn-mini wmsFloatLink" href="#"><i class="icon-end"></i> Exit Presentation Mode</a>');
-		$("DIV#header").addClass("wmsDisplayNone");
-		$("DIV#left-side").addClass("wmsDisplayNone");
-		$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
-		$("DIV#main").addClass("wmsMarginZero");
-		// float the exit button at fixed top right of window
-		$('.wmsFloatLink').fadeIn('fast');
-	}, function() {
-		$("a#wms_presentation_mode").html('<a id="wms_presentation_mode" class="btn-mini" href="#"><i class="icon-off"></i> Presentation Mode</a>');
-		$("DIV#header").removeClass("wmsDisplayNone");
-		$("DIV#left-side").removeClass("wmsDisplayNone");
-		$("DIV#right-side-wrapper").removeClass("wmsDisplayNone");
-		$("DIV#main").removeClass("wmsMarginZero");
-	});
+	// Presenter View: Create custom toggle click state
+	(function ($) {
+		$.fn.togglePresenterView = function () {
+			var ele = this;
+			ele.data('clickState', 0);
+			ele.click(function () {
+				//This will only set this._originalHeight once (value is stored in the DOM node itself)
+				this._originalHeight = this._originalHeight || $("DIV#main").height();
+				if (ele.data('clickState')) {
+					// show breadcrumb link and page elements
+					$("#wms_presenter_breadcrumb").removeClass("wmsDisplayNone");
+					$("DIV#header").removeClass("wmsDisplayNone");
+					$("DIV#left-side").removeClass("wmsDisplayNone");
+					$("DIV#right-side-wrapper").removeClass("wmsDisplayNone");
+					$("FOOTER").removeClass("wmsDisplayNone");
+					// hide zoom
+					$("DIV#main").removeClass("wmsMarginZero").removeClass("wmsPresenterZoom");
+					// reset height to original value (temporary height * 0.5 modifier to undo the previous zoom)
+					$("DIV#main").css('cssText', 'min-height: ' + this._originalHeight + 'px !important;');
+					// hide exit button
+					$("#wms_presenter_exit_btn").removeClass("wmsPresenterExit").prop("title","Enable Presenter View");
+					$("#wms_presenter_exit_text").addClass("wmsDisplayNone");
+					// scroll to top of page
+					$("HTML,BODY").scrollTop(0);
+				} else {
+					// hide breadcrumb link and page elements
+					$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
+					$("DIV#header").addClass("wmsDisplayNone");
+					$("DIV#left-side").addClass("wmsDisplayNone");
+					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
+					$("FOOTER").addClass("wmsDisplayNone");
+					// show zoom
+					$("DIV#main").addClass("wmsMarginZero").addClass("wmsPresenterZoom");
+					// set height to prevent page from being cut-off (dynamic height of primary div * 1.5 zoom modifier)
+					$("DIV#main.wmsPresenterZoom").css('cssText', 'min-height: ' + this._originalHeight * 1.5 + 'px !important;');
+					// show exit button (on extreme left side)
+					$("#wms_presenter_exit_btn").addClass("wmsPresenterExit").prop("title","Exit Presenter View");
+					$("#wms_presenter_exit_text").removeClass("wmsDisplayNone");
+				}
+				ele.data('clickState', !ele.data('clickState'));
+			});
+		};
+	})( jQuery );
+	$("#wms_presenter_exit_btn").togglePresenterView();
 
 
 	/***********************************************
-	 ** Williams Feature: Add Google Analytics
-	 ***********************************************/
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-10912569-3']);
-	_gaq.push(['_trackPageview']);
-	(function () {
-		var ga = document.createElement('scr' + 'ipt');
-		ga.type = 'text/javascript';
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
-	})();
-
-
-	/***********************************************
-	 ** Williams UI: LOGIN PAGE
+	 ** Customize UI: LOGIN PAGE
 	 ***********************************************/
 	if (window.location.href.match(/\/login/ig)) {
 		// change title of page (formerly: Log In to Canvas)
@@ -153,7 +166,7 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Williams UI: INTERNAL PAGES
+	 ** Customize UI: INTERNAL PAGES
 	 ***********************************************/
 	// UI Internal pages: Correct gap between buckets and colorbar decorations
 	var wmsCoursesLabel = $("#courses_menu_item.menu-item A.menu-item-title").text();
@@ -171,7 +184,7 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Williams Overrides: Footer Links
+	 ** Footer/Branding Link Overrides
 	 ***********************************************/
 		// Footer Links: Edit
 	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/help/glow/').prop('target','_blank');
@@ -180,6 +193,22 @@ $(document).ready(function () {
 	// Footer Links: Add
 	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
 	// Set CSS: $("BODY.modal #modal-box").css("cssText", "background: #FFFFFF !important");
+	
+
+	/***********************************************
+	 ** Add Google Analytics
+	 ***********************************************/
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-10912569-3']);
+	_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('scr' + 'ipt');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
 
 
 }); // END OF: (document).ready

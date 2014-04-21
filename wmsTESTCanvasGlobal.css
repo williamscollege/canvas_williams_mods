@@ -1,5 +1,5 @@
 /**********************************************
-** Williams Feature: People: Add Face Book, Learning Mode
+** People: Add Face Book and Learning Mode
 ***********************************************/
 #wms_roster_controls
 {
@@ -37,33 +37,24 @@
 {
 	outline: 0;
 }
+@media print
+{
+	/*Force Canvas avatar background-images to show when printed*/
+	/*Works for webkit browsers like Chrome and Safari; no hack available for FF or IE*/
+	A.avatar
+	{
+		-webkit-print-color-adjust: exact;
+	}
+	/*Remove urls from print mode Canvas avatar background-images to show when printed*/
+	A.roster_user_name[href]:after
+	{
+		content: "";
+	}
+}
 /**********************************************
-** Williams Branding: Globally remove Canvas links
-**********************************************
-Hide footer logo*/
-#footer A.footer-logo
-{
-	display: none !important;
-}
-/*Hide footer links*/
-#footer #footer-links A[href="http://facebook.com/instructure"]
-{
-	display: none !important;
-}
-#footer #footer-links A[href="http://twitter.com/instructure"]
-{
-	display: none !important;
-}
-#footer #footer-links A[href="http://www.instructure.com/policies/privacy-policy-instructure"]
-{
-	display: none !important;
-}
-/*Hide canvas logo on internal LTI login pages*/
-BODY.modal #modal-box H2, BODY.modal #modal-box .h2
-{
-	background: no-repeat !important;
-}
-/*Custom classes to enable toggling classes via jQuery's addClass and removeClass*/
+** Add Presenter View (zoom content area; hide all other columns)
+**********************************************/
+/*Add custom classes for use with jQuery's addClass and removeClass methods*/
 .wmsDisplayNone
 {
 	display: none !important;
@@ -72,150 +63,51 @@ BODY.modal #modal-box H2, BODY.modal #modal-box .h2
 {
 	margin: 0px !important;
 }
-.wmsFloatLink
+.wmsPresenterExit
 {
 	position: fixed;
-	top: 26px;
-	right: 0px;
-	background-color: #D6ECFC;
-	padding: 3px;
+	top: 0px;
+	left: 0px;
+	background-color: #27ACD3;
+	cursor: pointer;
 	border: 1px solid #373737;
-	z-index: 1;
-	display: none;
+	width: 20px;
+	height: 100%;
+	opacity: .7;
 }
-.wmsFloatLink:hover
+.wmsPresenterExit:hover
 {
-	background-color: #FFE0E0;
+	opacity: 1;
 }
-/*Kaltura - Hide icon in Rich Text Editor for Kaltura Community edition*/
-TD A.mce_instructure_record
-{
-	/*[disabled]display:none;*/
+/*Rotate text of "exit button"*/
+.wmsPresenterRotate {
+	position: absolute;
+	top: 350px;
+	-webkit-transform: rotate(-90deg);
+	-ff-transform: rotate(-90deg);
+	transform: rotate(-90deg); /*this rotates the internal text, not the bounding box*/
+	width: 20px;
+	font-weight: bold;
+	color: #000000;
 }
-/*Kaltura - force Kaltura image in LTI auth box to maintain dimensions*/
-BODY.modal #modal-box H2 IMG.icon_url[src="http://cdnknowledge.kaltura.com//sites/all/themes/kaltura_theme/logo.png"]
+/*Increase page ratio using transform*/
+.wmsPresenterZoom
 {
-	/*[disabled]width: 146px !important;*/
-	/*[disabled]height: 80px !important;*/
+	max-width: 1024px; /*Limit width to the default resolution of our wired classrooms*/
+	padding-left: 25px;
+	transform: scale(1.5);
+	transform-origin: 0 0;
+	-moz-transform: scale(1.5);
+	-moz-transform-origin: 0 0;
+	-webkit-transform: scale(1.5);
+	-webkit-transform-origin: 0 0;
+	-o-transform: scale(1.5);
+	-o-transform-origin: 0 0;
+	-ms-transform: scale(1.5);
+	-ms-transform-origin: 0 0;
 }
 /**********************************************
-** Williams UI: INTERNAL PAGES
-**********************************************/
-BODY
-{
-	background: #E4E6E8 no-repeat !important;
-}
-/*Replace the top gray background with something that matches your colors. If you don't use an image, you need to remove ours*/
-#header
-{
-	background: #373737 !important;
-}
-/*Make sure your logo doesn't bleed onto the content below for open registration courses*/
-#header.no-user
-{
-	min-height:70px !important;
-}
-/*Make sure your secondary logo sits where it should*/
-#header.no-user #header-logo-secondary
-{
-	bottom: -45px !important;
-}
-/*replace the canvas logo with your logo*/
-#header-logo, #header.no-user #header-logo
-{
-	background: transparent url("images/interior-logo-glow.png") no-repeat 0% / 201px 45px !important;
-	top: 26px !important;
-	left: 13px !important;
-	height: 45px !important;
-	width: 201px !important;
-}
-/*if you replace the left canvas logo, move a smaller one to the right side of the header. include background-size to ensure it displays correctly on ipads*/
-#header-logo-secondary
-{
-	background: transparent url("images/interior-logo-williams.png") no-repeat 0% / 162px 30px !important;
-	display: block !important;
-	bottom: -1px !important;
-	right: 10px !important;
-	height: 30px !important;
-	width: 162px !important;
-}
-/*if your logo is bigger, you can scoot the menu to the right with this*/
-#menu
-{
-	margin-left: 243px !important;
-}
-/*insert colorful boxy png images*/
-#courses_menu_item
-{
-	background: transparent url("images/colorbar-1.png") no-repeat bottom center / 88px 6px !important;
-}
-#assignments_menu_item
-{
-	background: transparent url("images/colorbar-2.png") no-repeat bottom center / 93px 6px !important;
-}
-#grades_menu_item
-{
-	background: transparent url("images/colorbar-3.png") no-repeat bottom center / 88px 6px !important;
-}
-#calendar_menu_item
-{
-	background: transparent url("images/colorbar-4.png") no-repeat bottom center / 88px 6px !important;
-	margin-left: 13px !important;
-}
-/*add padding for the narrowest top buckets*/
-A.menu-item-title, A.menu-item-no-drop
-{
-	min-width: 85px !important;
-}
-/*change the color of the menu items (courses & groups etc.). If the text looks fuzzy, remove the text shadow.*/
-.menu-item .menu-item-title, .menu-item .menu-item-no-drop
-{
-	text-align: center !important;
-	text-shadow: none !important;
-}
-/*alter the identity bar*/
-#identity
-{
-	background: #FFFFFF !important;
-	margin: 0px !important;
-	padding: 0 0 0 6px !important;
-	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3) !important;
-}
-/*change the color of the identity text*/
-#identity LI
-{
-	padding: 0px 0px 0px 2px !important;
-}
-#identity LI.user_name A
-{
-	color: #6E33CC !important;
-}
-#identity LI A
-{
-	color: #404040 !important;
-}
-#identity LI A:hover
-{
-	color: #000000 !important;
-}
-/*change color of the "masquerading as" name when masquerading or using student view*/
-#identity .emphasize-name
-{
-	color: #D94D48 !important;
-}
-/*change color of the circle around the number of unread inbox messages*/
-#identity .inbox A .unread-messages-count
-{
-	background-color: #512698 !important;
-}
-/*align Help with Williams right-hand logo*/
-#identity LI#identity-help-container
-{
-	padding: 0px !important;
-	margin-right: 3px !important;
-}
-/**********************************************
-** Williams UI: LOGIN PAGE
+** Customize UI: LOGIN PAGE
 *********************************************
 set gradient for login box's background by replacing #topcolor and #bottomcolor with color values
 ensure solid background color on internal LTI login pages*/
@@ -349,7 +241,7 @@ BODY.modal #modal-box .button:hover, BODY.modal #login-box .button:hover, #login
 	/*note: do not set width, as internal error msgs are negatively affected*/
 }
 /**********************************************
-** Williams UI: MOBILE LOGIN PAGE
+** Customize UI: MOBILE LOGIN PAGE
 *********************************************
 update the background URL*/
 #f1_container
@@ -382,4 +274,157 @@ update the background URL*/
 #login_form.front.face A.forgot-password
 {
 	margin-top: 15px !important;
+}
+/**********************************************
+** Customize UI: INTERNAL PAGES
+**********************************************/
+BODY
+{
+	background: #E4E6E8 no-repeat !important;
+}
+/*Replace the top gray background with something that matches your colors. If you don't use an image, you need to remove ours*/
+#header
+{
+	background: #373737 !important;
+}
+/*Make sure your logo doesn't bleed onto the content below for open registration courses*/
+#header.no-user
+{
+	min-height:70px !important;
+}
+/*Make sure your secondary logo sits where it should*/
+#header.no-user #header-logo-secondary
+{
+	bottom: -45px !important;
+}
+/*replace the canvas logo with your logo*/
+#header-logo, #header.no-user #header-logo
+{
+	background: transparent url("images/interior-logo-glow.png") no-repeat 0% / 201px 45px !important;
+	top: 26px !important;
+	left: 13px !important;
+	height: 45px !important;
+	width: 201px !important;
+}
+/*if you replace the left canvas logo, move a smaller one to the right side of the header. include background-size to ensure it displays correctly on ipads*/
+#header-logo-secondary
+{
+	background: transparent url("images/interior-logo-williams.png") no-repeat 0% / 162px 30px !important;
+	display: block !important;
+	bottom: -1px !important;
+	right: 10px !important;
+	height: 30px !important;
+	width: 162px !important;
+}
+/*if your logo is bigger, you can scoot the menu to the right with this*/
+#menu
+{
+	margin-left: 243px !important;
+}
+/*insert colorful boxy png images*/
+#courses_menu_item
+{
+	background: transparent url("images/colorbar-1.png") no-repeat bottom center / 88px 6px !important;
+}
+#assignments_menu_item
+{
+	background: transparent url("images/colorbar-2.png") no-repeat bottom center / 93px 6px !important;
+}
+#grades_menu_item
+{
+	background: transparent url("images/colorbar-3.png") no-repeat bottom center / 88px 6px !important;
+}
+#calendar_menu_item
+{
+	background: transparent url("images/colorbar-4.png") no-repeat bottom center / 88px 6px !important;
+	margin-left: 13px !important;
+}
+/*add padding for the narrowest top buckets*/
+A.menu-item-title, A.menu-item-no-drop
+{
+	min-width: 85px !important;
+}
+/*change the color of the menu items (courses & groups etc.). If the text looks fuzzy, remove the text shadow.*/
+.menu-item .menu-item-title, .menu-item .menu-item-no-drop
+{
+	text-align: center !important;
+	text-shadow: none !important;
+}
+/*alter the identity bar*/
+#identity
+{
+	background: #FFFFFF !important;
+	margin: 0px !important;
+	padding: 0 0 0 6px !important;
+	box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3) !important;
+}
+/*change the color of the identity text*/
+#identity LI
+{
+	padding: 0px 0px 0px 2px !important;
+}
+#identity LI.user_name A
+{
+	color: #6E33CC !important;
+}
+#identity LI A
+{
+	color: #404040 !important;
+}
+#identity LI A:hover
+{
+	color: #000000 !important;
+}
+/*change color of the "masquerading as" name when masquerading or using student view*/
+#identity .emphasize-name
+{
+	color: #D94D48 !important;
+}
+/*change color of the circle around the number of unread inbox messages*/
+#identity .inbox A .unread-messages-count
+{
+	background-color: #512698 !important;
+}
+/*align Help with Williams right-hand logo*/
+#identity LI#identity-help-container
+{
+	padding: 0px !important;
+	margin-right: 3px !important;
+}
+/**********************************************
+** Footer/Branding Link Overrides
+**********************************************
+Hide footer logo*/
+#footer A.footer-logo
+{
+	display: none !important;
+}
+/*Hide footer links*/
+#footer #footer-links A[href="http://facebook.com/instructure"]
+{
+	display: none !important;
+}
+#footer #footer-links A[href="http://twitter.com/instructure"]
+{
+	display: none !important;
+}
+#footer #footer-links A[href="http://www.instructure.com/policies/privacy-policy-instructure"]
+{
+	display: none !important;
+}
+/*Hide canvas logo on internal LTI login pages*/
+BODY.modal #modal-box H2, BODY.modal #modal-box .h2
+{
+	background: no-repeat !important;
+}
+/*Kaltura - Hide icon in Rich Text Editor for Kaltura Community edition*/
+TD A.mce_instructure_record
+{
+	/*[disabled]display:none;*/
+}
+/*Kaltura - force Kaltura image in LTI auth box to maintain dimensions*/
+BODY.modal #modal-box H2 IMG.icon_url[src="http://cdnknowledge.kaltura.com//sites/all/themes/kaltura_theme/logo.png"]
+{
+	/*[disabled]width: 146px !important;*/
+	/*[disabled]height: 80px !important;*/
 }

@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
 	/***********************************************
-	 ** Williams Feature: People: Add Face Book, Learning Mode
+	 ** People: Add Face Book and Learning Mode
 	 ***********************************************/
 	// Url must match this pattern
 	if (window.location.href.match(/\/courses\/\d+\/users/ig)) {
-	// Listen for completion of all AJAX calls, then insert the Learning Mode button
-	$(document).ajaxComplete(function () {
+		// Listen for completion of all AJAX calls, then insert the Learning Mode button
+		$(document).ajaxComplete(function () {
 			if ($("#wms_roster_btn_learning").length == 0) {
 				// Insert the Learning Mode button
 				$("DIV#content.container-fluid DIV DIV.v-gutter TABLE.roster").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="View larger photos, show or hide names"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
@@ -16,111 +16,124 @@ $(document).ready(function () {
 				return false;
 			}
 
-		// Toggle: Learning Mode button
-		$("#wms_roster_btn_learning").toggle(function (event) {
+			// Toggle: Learning Mode button
+			$("#wms_roster_btn_learning").toggle(function (event) {
 
-			// Turn learning mode: ON
-			$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show List").prop("title", "Return to list view");
+				// Turn learning mode: ON
+				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show List").prop("title", "Return to list view");
 
-			// Initial state of hyperlink
-			$("#wms_roster_toggle_names").text("Turn Learning Mode On").prop("title", "Hide names");
-
-			// Toggle: Names hyperlink
-			$("#wms_roster_toggle_names").toggle(function (event) {
-				// Hide the name/role
-				$("#wms_roster_toggle_names").text("Turn Learning Mode Off").prop("title", "Show names");
-				$(".wms_roster_user small").addClass("hide");
-				// Display name/role upon image hover
-				$("#wms_roster_grid .wms_roster_user").hover(function () {
-					$(this).find("small").removeClass("hide");
-				}, function () {
-					$(this).find("small").addClass("hide");
-				});
-			}, function () {
-				// Show the name/role
+				// Initial state of hyperlink
 				$("#wms_roster_toggle_names").text("Turn Learning Mode On").prop("title", "Hide names");
-				$(".wms_roster_user small").removeClass("hide");
-				// Display name/role upon image hover
-				$("#wms_roster_grid .wms_roster_user").hover(function () {
-					$(this).find("small").removeClass("hide");
+
+				// Toggle: Names hyperlink
+				$("#wms_roster_toggle_names").toggle(function (event) {
+					// Hide the name/role
+					$("#wms_roster_toggle_names").text("Turn Learning Mode Off").prop("title", "Show names");
+					$(".wms_roster_user small").addClass("hide");
+					// Display name/role upon image hover
+					$("#wms_roster_grid .wms_roster_user").hover(function () {
+						$(this).find("small").removeClass("hide");
+					}, function () {
+						$(this).find("small").addClass("hide");
+					});
 				}, function () {
-					$(this).find("small").removeClass("hide");
+					// Show the name/role
+					$("#wms_roster_toggle_names").text("Turn Learning Mode On").prop("title", "Hide names");
+					$(".wms_roster_user small").removeClass("hide");
+					// Display name/role upon image hover
+					$("#wms_roster_grid .wms_roster_user").hover(function () {
+						$(this).find("small").removeClass("hide");
+					}, function () {
+						$(this).find("small").removeClass("hide");
+					});
 				});
+
+				// Create array to copy desired contents
+				var createGrid = "";
+				var extractHTMLObjects = $("TABLE.roster TBODY TR.rosterUser");
+				$.each(extractHTMLObjects, function (index, value) {
+					// console.log(index + "/" + $(value).html()); // produces: 5/[object HTMLTableCellElement]
+					var img = $(this).find('td:nth-child(1)').html();
+					var name = $(this).find('td:nth-child(2)').html();
+					var role = $(this).find('td:nth-child(5)').text();
+
+					var user_info = img + "<small class=\"\">" + name + "</small><br /><small class=\"\">" + role + "</small>";
+					createGrid += "<div class=\"wms_roster_user\">" + user_info + "</div>";
+				});
+				createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
+
+				// Display grid (add it to DOM)
+				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").before(createGrid);
+				// Hide Canvas default student table
+				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").addClass("hide");
+			}, function () {
+				// Turn learning mode: OFF
+				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "View larger photos, show name by hovering over a picture");
+				// Remove Link: Hide Names
+				$("#wms_roster_toggle_names").text("").prop("title", "");
+				// Remove grid from DOM
+				$("#wms_roster_grid").remove();
+				// Restore Canvas default student table
+				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").removeClass("hide");
 			});
 
-			// Create array to copy desired contents
-			var createGrid = "";
-			var extractHTMLObjects = $("TABLE.roster TBODY TR.rosterUser");
-			$.each(extractHTMLObjects, function (index, value) {
-				// console.log(index + "/" + $(value).html()); // produces: 5/[object HTMLTableCellElement]
-				var img = $(this).find('td:nth-child(1)').html();
-				var name = $(this).find('td:nth-child(2)').html();
-				var role = $(this).find('td:nth-child(5)').text();
-
-				var user_info = img + "<small class=\"\">" + name + "</small><br /><small class=\"\">" + role + "</small>";
-				createGrid += "<div class=\"wms_roster_user\">" + user_info + "</div>";
-			});
-			createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
-
-			// Display grid (add it to DOM)
-			$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").before(createGrid);
-			// Hide Canvas default student table
-			$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").addClass("hide");
-		}, function () {
-			// Turn learning mode: OFF
-			$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "View larger photos, show name by hovering over a picture");
-			// Remove Link: Hide Names
-			$("#wms_roster_toggle_names").text("").prop("title", "");
-			// Remove grid from DOM
-			$("#wms_roster_grid").remove();
-			// Restore Canvas default student table
-			$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").removeClass("hide");
-		});
-
-	}); // END OF: (document).ajaxComplete
+		}); // END OF: (document).ajaxComplete
 	}
 
 
 	/***********************************************
-	 ** Williams Feature: Add Presentation Mode (hide top, left and right divs from page)
+	 ** Add Presenter View (zoom content area; hide all other columns)
 	 ***********************************************/
-	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><a id="wms_presentation_mode" class="btn-mini" href="#"><i class="icon-off"></i> Presentation Mode</a>&nbsp;&nbsp;</li>');
+	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div></li>');
 
-	$( "#wms_presentation_mode" ).toggle(function() {
-		$("a#wms_presentation_mode").html('<a id="wms_presentation_mode" class="btn-mini wmsFloatLink" href="#"><i class="icon-end"></i> Exit Presentation Mode</a>');
-		$("DIV#header").addClass("wmsDisplayNone");
-		$("DIV#left-side").addClass("wmsDisplayNone");
-		$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
-		$("DIV#main").addClass("wmsMarginZero");
-		// float the exit button at fixed top right of window
-		$('.wmsFloatLink').fadeIn('fast');
-	}, function() {
-		$("a#wms_presentation_mode").html('<a id="wms_presentation_mode" class="btn-mini" href="#"><i class="icon-off"></i> Presentation Mode</a>');
-		$("DIV#header").removeClass("wmsDisplayNone");
-		$("DIV#left-side").removeClass("wmsDisplayNone");
-		$("DIV#right-side-wrapper").removeClass("wmsDisplayNone");
-		$("DIV#main").removeClass("wmsMarginZero");
-	});
+	// Presenter View: Create custom toggle click state
+	(function ($) {
+		$.fn.togglePresenterView = function () {
+			var ele = this;
+			ele.data('clickState', 0);
+			ele.click(function () {
+				//This will only set this._originalHeight once (value is stored in the DOM node itself)
+				this._originalHeight = this._originalHeight || $("DIV#main").height();
+				if (ele.data('clickState')) {
+					// show breadcrumb link and page elements
+					$("#wms_presenter_breadcrumb").removeClass("wmsDisplayNone");
+					$("DIV#header").removeClass("wmsDisplayNone");
+					$("DIV#left-side").removeClass("wmsDisplayNone");
+					$("DIV#right-side-wrapper").removeClass("wmsDisplayNone");
+					$("FOOTER").removeClass("wmsDisplayNone");
+					// hide zoom
+					$("DIV#main").removeClass("wmsMarginZero").removeClass("wmsPresenterZoom");
+					// reset height to original value (temporary height * 0.5 modifier to undo the previous zoom)
+					$("DIV#main").css('cssText', 'min-height: ' + this._originalHeight + 'px !important;');
+					// hide exit button
+					$("#wms_presenter_exit_btn").removeClass("wmsPresenterExit").prop("title","Enable Presenter View");
+					$("#wms_presenter_exit_text").addClass("wmsDisplayNone");
+					// scroll to top of page
+					$("HTML,BODY").scrollTop(0);
+				} else {
+					// hide breadcrumb link and page elements
+					$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
+					$("DIV#header").addClass("wmsDisplayNone");
+					$("DIV#left-side").addClass("wmsDisplayNone");
+					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
+					$("FOOTER").addClass("wmsDisplayNone");
+					// show zoom
+					$("DIV#main").addClass("wmsMarginZero").addClass("wmsPresenterZoom");
+					// set height to prevent page from being cut-off (dynamic height of primary div * 1.5 zoom modifier)
+					$("DIV#main.wmsPresenterZoom").css('cssText', 'min-height: ' + this._originalHeight * 1.5 + 'px !important;');
+					// show exit button (on extreme left side)
+					$("#wms_presenter_exit_btn").addClass("wmsPresenterExit").prop("title","Exit Presenter View");
+					$("#wms_presenter_exit_text").removeClass("wmsDisplayNone");
+				}
+				ele.data('clickState', !ele.data('clickState'));
+			});
+		};
+	})( jQuery );
+	$("#wms_presenter_exit_btn").togglePresenterView();
 
 
 	/***********************************************
-	 ** Williams Feature: Add Google Analytics
-	 ***********************************************/
-	var _gaq = _gaq || [];
-	_gaq.push(['_setAccount', 'UA-10912569-3']);
-	_gaq.push(['_trackPageview']);
-	(function () {
-		var ga = document.createElement('scr' + 'ipt');
-		ga.type = 'text/javascript';
-		ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(ga, s);
-	})();
-
-
-	/***********************************************
-	 ** Williams UI: LOGIN PAGE
+	 ** Customize UI: LOGIN PAGE
 	 ***********************************************/
 	if (window.location.href.match(/\/login/ig)) {
 		// change title of page (formerly: Log In to Canvas)
@@ -138,7 +151,7 @@ $(document).ready(function () {
 		// custom footer links (only on login page)
 		$("#modal-box-inner").append(
 			'<p id="wms-login-footer"><a class="not_external hint-text" href="http://oit.williams.edu/help/glow/" target="_blank" title="Help">Help</a>&nbsp;<span class="hint-text">&#124;</span>&nbsp;' +
-			'<a class="not_external hint-text" href="http://oit.williams.edu/help/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a></p>'
+				'<a class="not_external hint-text" href="http://oit.williams.edu/help/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a></p>'
 		);
 
 		// hide standard footer links because login page has custom links (created above)
@@ -153,7 +166,7 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Williams UI: INTERNAL PAGES
+	 ** Customize UI: INTERNAL PAGES
 	 ***********************************************/
 	// UI Internal pages: Correct gap between buckets and colorbar decorations
 	var wmsCoursesLabel = $("#courses_menu_item.menu-item A.menu-item-title").text();
@@ -171,15 +184,31 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Williams Overrides: Footer Links
+	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-	// Footer Links: Edit
+		// Footer Links: Edit
 	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/help/glow/').prop('target','_blank');
 	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/help/glow/terms-of-service/').prop('target','_blank');
 
 	// Footer Links: Add
 	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
 	// Set CSS: $("BODY.modal #modal-box").css("cssText", "background: #FFFFFF !important");
+	
+
+	/***********************************************
+	 ** Add Google Analytics
+	 ***********************************************/
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-10912569-3']);
+	_gaq.push(['_trackPageview']);
+	(function () {
+		var ga = document.createElement('scr' + 'ipt');
+		ga.type = 'text/javascript';
+		ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0];
+		s.parentNode.insertBefore(ga, s);
+	})();
 
 
 }); // END OF: (document).ready
