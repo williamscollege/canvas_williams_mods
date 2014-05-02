@@ -52,7 +52,7 @@
 	}
 }
 /**********************************************
-** Add Presenter View (zoom content area; hide all other columns)
+** Add Presenter View (zoom main div; hide all other columns)
 **********************************************/
 /*Add custom classes for use with jQuery's addClass and removeClass methods*/
 .wmsDisplayNone
@@ -89,22 +89,6 @@
 	width: 20px;
 	font-weight: bold;
 	color: #000000;
-}
-/*Increase page ratio using transform*/
-.wmsPresenterZoom
-{
-	max-width: 1024px; /*Limit width to the default resolution of our wired classrooms*/
-	padding-left: 25px;
-	transform: scale(1.5);
-	transform-origin: 0 0;
-	-moz-transform: scale(1.5);
-	-moz-transform-origin: 0 0;
-	-webkit-transform: scale(1.5);
-	-webkit-transform-origin: 0 0;
-	-o-transform: scale(1.5);
-	-o-transform-origin: 0 0;
-	-ms-transform: scale(1.5);
-	-ms-transform-origin: 0 0;
 }
 /**********************************************
 ** Customize UI: LOGIN PAGE

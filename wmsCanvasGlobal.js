@@ -82,8 +82,82 @@ $(document).ready(function () {
 
 
 	/***********************************************
-	 ** Add Presenter View (zoom content area; hide all other columns)
+	 ** Add Presenter View (zoom main div; hide all other columns)
 	 ***********************************************/
+	/*
+	 * START: Scale a page using CSS3
+	 * @param minWidth {Number} The width of your wrapper or your page's minimum width.
+	 * @return {Void}
+	 * author of original fxn: http://binarystash.blogspot.com/2013/04/scaling-entire-page-through-css3.html
+	 */
+	function scalePage(minWidth) {
+
+		//Check parameters
+		if (minWidth == "") {
+			console.log("minWidth not defined. Exiting");
+			return;
+		}
+
+		//Do not scale if a touch device is detected.
+		if (isTouchDevice()) {
+			return;
+		}
+
+		//The 'body' tag should generally be the parent element, but hack works better with Canvas
+		var parentElem = "#wrapper-container";
+
+		//Wrap content to prevent long vertical scrollbars
+		$(parentElem).wrapInner('<div id="resizer-boundary" />');
+		$("#resizer-boundary").wrapInner('<div id="resizer-supercontainer" />');
+
+		var boundary = $("#resizer-boundary");
+		var superContainer = $("#resizer-supercontainer");
+
+		//Get current dimensions of content
+		var winW = $(window).width();
+		var docH = $(parentElem).height();
+
+		scalePageNow();
+		$(window).resize(scalePageNow);
+
+		//Nested functions
+
+		function scalePageNow() {
+			//Defining the width of 'supercontainer' ensures that content will be
+			//centered when the window is wider than the original content.
+			superContainer.width(minWidth);
+
+			//Get the width of the window
+			winW = $(window).width();
+
+			var newWidth = winW / minWidth; //percentage
+			var newHeight = (docH * (newWidth * minWidth)) / minWidth; //pixel
+			superContainer.css({
+				"transform": "scale(" + newWidth + ")",
+				"transform-origin": "0 0",
+				"-ms-transform": "scale(" + newWidth + ")",
+				"-ms-transform-origin": "0 0",
+				"-moz-transform": "scale(" + newWidth + ")",
+				"-moz-transform-origin": "0 0",
+				"-o-transform": "scale(" + newWidth + ")",
+				"-o-transform-origin": "0 0",
+				"-webkit-transform": "scale(" + newWidth + ")",
+				"-webkit-transform-origin": "0 0"
+			});
+			boundary.css({
+				"position": "relative",
+				"overflow": "hidden",
+				"height": newHeight + "px"
+			});
+		}
+
+		function isTouchDevice() {
+			return !!('ontouchstart' in window || window.navigator.msMaxTouchPoints);
+		}
+	}
+
+	// END OF FUNCTION: scalePage()
+
 	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div></li>');
 
 	// Presenter View: Create custom toggle click state
@@ -92,43 +166,30 @@ $(document).ready(function () {
 			var ele = this;
 			ele.data('clickState', 0);
 			ele.click(function () {
-				//This will only set this._originalHeight once (value is stored in the DOM node itself)
-				this._originalHeight = this._originalHeight || $("DIV#main").height();
 				if (ele.data('clickState')) {
-					// show breadcrumb link and page elements
-					$("#wms_presenter_breadcrumb").removeClass("wmsDisplayNone");
-					$("DIV#header").removeClass("wmsDisplayNone");
-					$("DIV#left-side").removeClass("wmsDisplayNone");
-					$("DIV#right-side-wrapper").removeClass("wmsDisplayNone");
-					$("FOOTER").removeClass("wmsDisplayNone");
-					// hide zoom
-					$("DIV#main").removeClass("wmsMarginZero").removeClass("wmsPresenterZoom");
-					// reset height to original value (temporary height * 0.5 modifier to undo the previous zoom)
-					$("DIV#main").css('cssText', 'min-height: ' + this._originalHeight + 'px !important;');
-					// hide exit button
-					$("#wms_presenter_exit_btn").removeClass("wmsPresenterExit").prop("title","Enable Presenter View");
-					$("#wms_presenter_exit_text").addClass("wmsDisplayNone");
-					// scroll to top of page
-					$("HTML,BODY").scrollTop(0);
-				} else {
+					// refresh page
+					location.reload();
+				}
+				else {
 					// hide breadcrumb link and page elements
 					$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
 					$("DIV#header").addClass("wmsDisplayNone");
 					$("DIV#left-side").addClass("wmsDisplayNone");
 					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
-					$("FOOTER").addClass("wmsDisplayNone");
-					// show zoom
-					$("DIV#main").addClass("wmsMarginZero").addClass("wmsPresenterZoom");
-					// set height to prevent page from being cut-off (dynamic height of primary div * 1.5 zoom modifier)
-					$("DIV#main.wmsPresenterZoom").css('cssText', 'min-height: ' + this._originalHeight * 1.5 + 'px !important;');
+					//$("FOOTER").addClass("wmsDisplayNone");
+					$("DIV#main").addClass("wmsMarginZero").css("cssText", "padding-left: 25px;max-width: 900px !important;"); // max-width should match value given to scalePage(), below
+
+					// do scale function
+					scalePage(900); // set somewhat arbitrary hardcoded minWidth value
+
 					// show exit button (on extreme left side)
-					$("#wms_presenter_exit_btn").addClass("wmsPresenterExit").prop("title","Exit Presenter View");
+					$("#wms_presenter_exit_btn").addClass("wmsPresenterExit").prop("title", "Exit Presenter View");
 					$("#wms_presenter_exit_text").removeClass("wmsDisplayNone");
 				}
 				ele.data('clickState', !ele.data('clickState'));
 			});
 		};
-	})( jQuery );
+	})(jQuery);
 	$("#wms_presenter_exit_btn").togglePresenterView();
 
 
@@ -155,11 +216,11 @@ $(document).ready(function () {
 		);
 
 		// hide standard footer links because login page has custom links (created above)
-		$("#footer-links").css("display","none");
+		$("#footer-links").css("display", "none");
 
 		// MOBILE HACKS
 		// Add type=text to username input field (so that default styles apply to it same as to password field)
-		$("#login_form.front.face INPUT.input-block-level[name='pseudonym_session[unique_id]']").prop('type','text');
+		$("#login_form.front.face INPUT.input-block-level[name='pseudonym_session[unique_id]']").prop('type', 'text');
 		// Change labels/text
 		$("#login_form.front.face A.forgot-password").text("Forgot password?");
 	}
@@ -170,47 +231,50 @@ $(document).ready(function () {
 	 ***********************************************/
 	// UI Internal pages: Correct gap between buckets and colorbar decorations
 	var wmsCoursesLabel = $("#courses_menu_item.menu-item A.menu-item-title").text();
-	if (wmsCoursesLabel.match(/Groups/ig)){
+	if (wmsCoursesLabel.match(/Groups/ig)) {
 		// Courses & Groups
 		$("#courses_menu_item").css("cssText", "margin-right: -10px !important;");
-	} else {
+	}
+	else {
 		// Courses (lacking Groups)
 		$("#courses_menu_item").css("cssText", "margin-right: 16px !important;");
 	}
-	if (! $("#assignments_menu_item.menu-item A.menu-item-title i").hasClass("icon-mini-arrow-down") ){
+	if (!$("#assignments_menu_item.menu-item A.menu-item-title i").hasClass("icon-mini-arrow-down")) {
 		// Assignments (lacking arrow)
 		$("#assignments_menu_item").css("cssText", "margin-right: 10px !important;");
-	};
+	}
+	;
 
 
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
 		// Footer Links: Edit
-	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/glow/').prop('target','_blank');
-	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target','_blank');
+	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/glow/').prop('target', '_blank');
+	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
 
 	// Footer Links: Add
 	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
 	// Set CSS: $("BODY.modal #modal-box").css("cssText", "background: #FFFFFF !important");
-	
+
 
 	/***********************************************
 	 ** Add Google Analytics
 	 ***********************************************/
-	(function(i, s, o, g, r, a, m) {
+	(function (i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function() {
+		i[r] = i[r] || function () {
 			(i[r].q = i[r].q || []).push(arguments)
 		}, i[r].l = 1 * new Date();
 		a = s.createElement(o),
-		m = s.getElementsByTagName(o)[0];
+			m = s.getElementsByTagName(o)[0];
 		a.async = 1;
 		a.src = g;
 		m.parentNode.insertBefore(a, m)
 	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-	ga('create', 'UA-10912569-3', 'auto'); ga('send', 'pageview');
+	ga('create', 'UA-10912569-3', 'auto');
+	ga('send', 'pageview');
 
 
 }); // END OF: (document).ready

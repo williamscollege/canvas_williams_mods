@@ -25,16 +25,18 @@
  - Requires: Only these two JS/CSS global override files (wmsCanvasGlobal.css, wmsCanvasGlobal.js)
  - Future plans: I plan to add an LTI to inject the class year into each student's info box
 
-#### Add Presenter View (zoom content area; hide all other columns)
+#### Add Presenter View (zoom main div; hide all other columns)
 
  - Add Link: Automatically insert a "Presenter View" hyperlink on the right-side of the "breadcrumbs" navigation
- - Zoom: Increase zoom by 50% (transform scale is customizable)
- - Hide: Display only center column (hide: top, left, right, footer)
+ - Zoom: Increase scale of main (center) region to fill browser, wrapping text as needed
+ - Dynamically Re-Scale: Resize browser to increase/decrease visible aspect (zoom) ratio
+ - Hide: Display only main (center) div (hide: top, left, right)
  - Display All: Increase height dynamically to prevent zoomed page from being inappropriately cut off
- - Resolution: Limit width to the default resolution of our wired classrooms (1024px)
+ - Resolution: Set width to 900px to ensure magnification occurs in our wired classrooms
  - Exit: Easily return to "normal mode" via "exit" button on left side of screen
  - Note: Hidden content remains in the document object model, but is hidden via CSS. This means the page still functions correctly
  - Note: The "Presenter View" hyperlink will appear on the right-side of all pages that contain the breadcrumbs navigation item
+ - Works with: All browsers, including mobile browsers (held in horizontal mode)
  - Intended Usage: classroom projector
 
 #### Customize UI: LOGIN PAGE
