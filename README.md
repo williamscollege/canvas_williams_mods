@@ -29,7 +29,7 @@
 
  - Add Link: Automatically insert a "Presenter View" hyperlink on the right-side of the "breadcrumbs" navigation
  - Zoom: Increase scale of main (center) region to fill browser, wrapping text as needed
- - Dynamically Re-Scale: Resize browser to increase/decrease visible aspect (zoom) ratio
+ - Rescale: Resize browser to dynamically increase/decrease visible aspect (zoom) ratio of text and images
  - Hide: Display only main (center) div (hide: top, left, right)
  - Display All: Increase height dynamically to prevent zoomed page from being inappropriately cut off
  - Resolution: Set width to 900px to ensure magnification occurs in our wired classrooms
