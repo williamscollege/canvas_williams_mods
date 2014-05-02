@@ -88,7 +88,7 @@ $(document).ready(function () {
 	 * START: Scale a page using CSS3
 	 * @param minWidth {Number} The width of your wrapper or your page's minimum width.
 	 * @return {Void}
-	 * author of original fxn: http://binarystash.blogspot.com/2013/04/scaling-entire-page-through-css3.html
+	 * author of scalePage fxn: http://binarystash.blogspot.com/2013/04/scaling-entire-page-through-css3.html
 	 */
 	function scalePage(minWidth) {
 
