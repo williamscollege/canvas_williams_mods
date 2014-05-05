@@ -176,8 +176,9 @@ $(document).ready(function () {
 					$("DIV#header").addClass("wmsDisplayNone");
 					$("DIV#left-side").addClass("wmsDisplayNone");
 					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
-					//$("FOOTER").addClass("wmsDisplayNone");
 					$("DIV#main").addClass("wmsMarginZero").css("cssText", "padding-left: 25px;max-width: 900px !important;"); // max-width should match value given to scalePage(), below
+					// force all images to zoom correctly and avoid images becoming cut off; this requires removing the default style: IMG{max-width:1050px}
+					$("IMG").css("cssText","max-width: 100% !important;");
 
 					// do scale function
 					scalePage(900); // set somewhat arbitrary hardcoded minWidth value
@@ -211,7 +212,7 @@ $(document).ready(function () {
 
 		// custom footer links (only on login page)
 		$("#modal-box-inner").append(
-			'<p id="wms-login-footer"><a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Help">Help</a>&nbsp;<span class="hint-text">&#124;</span>&nbsp;' +
+			'<p id="wms-login-footer"><a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Williams Help">Williams Help</a>&nbsp;<span class="hint-text">&#124;</span>&nbsp;' +
 				'<a class="not_external hint-text" href="http://oit.williams.edu/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a></p>'
 		);
 
@@ -250,12 +251,10 @@ $(document).ready(function () {
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
 		// Footer Links: Edit
-	$("#footer-links A[href='http://help.instructure.com/']").prop('href', 'http://oit.williams.edu/glow/').prop('target', '_blank');
-	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
-
+	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target','_blank').prop('class','');
+	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target','_blank');
 	// Footer Links: Add
 	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
-	// Set CSS: $("BODY.modal #modal-box").css("cssText", "background: #FFFFFF !important");
 
 
 	/***********************************************
