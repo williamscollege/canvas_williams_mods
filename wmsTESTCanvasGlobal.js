@@ -9,7 +9,7 @@ $(document).ready(function () {
 		$(document).ajaxComplete(function () {
 			if ($("#wms_roster_btn_learning").length == 0) {
 				// Insert the Learning Mode button
-				$("DIV#content.container-fluid DIV DIV.v-gutter TABLE.roster").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="View larger photos, show or hide names"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
+				$("DIV#content.container-fluid DIV DIV.v-gutter TABLE.roster").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
 			}
 			else {
 				// Avoid creating duplicate buttons
@@ -20,7 +20,7 @@ $(document).ready(function () {
 			$("#wms_roster_btn_learning").toggle(function (event) {
 
 				// Turn learning mode: ON
-				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show List").prop("title", "Return to list view");
+				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Return to List");
 
 				// Initial state of hyperlink
 				$("#wms_roster_toggle_names").text("Turn Learning Mode On").prop("title", "Hide names");
@@ -68,7 +68,7 @@ $(document).ready(function () {
 				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").addClass("hide");
 			}, function () {
 				// Turn learning mode: OFF
-				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "View larger photos, show name by hovering over a picture");
+				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "(Photos viewable on-campus or via VPN)");
 				// Remove Link: Hide Names
 				$("#wms_roster_toggle_names").text("").prop("title", "");
 				// Remove grid from DOM
@@ -177,7 +177,7 @@ $(document).ready(function () {
 					$("DIV#left-side").addClass("wmsDisplayNone");
 					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
 					$("DIV#main").addClass("wmsMarginZero").css("cssText", "padding-left: 25px;max-width: 900px !important;"); // max-width should match value given to scalePage(), below
-					// force all images to zoom correctly and avoid images becoming cut off; this requires removing the default style: IMG{max-width:1050px}
+					// force all images to zoom correctly and avoid cutting off images; requires removing the default style: IMG{max-width:1050px}
 					$("IMG").css("cssText","max-width: 100% !important;");
 
 					// do scale function
@@ -250,7 +250,7 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-	// Footer Links: Edit
+		// Footer Links: Edit
 	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target','_blank').prop('class','');
 	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target','_blank');
 	// Footer Links: Add
