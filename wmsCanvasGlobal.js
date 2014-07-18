@@ -228,6 +228,17 @@ $(document).ready(function () {
 
 
 	/***********************************************
+	 ** Customize UI: SELF ENROLL (ALTERNATE LOGIN PAGE)
+	 ***********************************************/
+	if (window.location.href.match(/\/enroll/ig)) {
+		// change instruction text
+		$($("#enroll_form>p")[1]).text("Please enter your username and password:");
+		// change labels/text
+		$("label[for=student_email]").text("Username");
+	}
+
+
+	/***********************************************
 	 ** Customize UI: INTERNAL PAGES
 	 ***********************************************/
 	// UI Internal pages: Correct gap between buckets and colorbar decorations
