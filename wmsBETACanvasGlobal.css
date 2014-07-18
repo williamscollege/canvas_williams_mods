@@ -409,6 +409,6 @@ TD A.mce_instructure_record
 /*Kaltura - force Kaltura image in LTI auth box to maintain dimensions*/
 BODY.modal #modal-box H2 IMG.icon_url[src="http://cdnknowledge.kaltura.com//sites/all/themes/kaltura_theme/logo.png"]
 {
-	/*[disabled]width: 146px !important;*/
-	/*[disabled]height: 80px !important;*/
+	width: 146px !important;*/
+	height: 80px !important;*/
 }
