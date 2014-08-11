@@ -158,7 +158,10 @@ $(document).ready(function () {
 
 	// END OF FUNCTION: scalePage()
 
-	$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div></li>');
+	// Url must match this pattern (Do not display "Presenter View" link on pages that display LTI iframes)
+	if (!window.location.href.match(/\/external_tools/ig)) {
+		$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div></li>');
+	}
 
 	// Presenter View: Create custom toggle click state
 	(function ($) {
@@ -178,7 +181,7 @@ $(document).ready(function () {
 					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
 					$("DIV#main").addClass("wmsMarginZero").css("cssText", "padding-left: 25px;max-width: 900px !important;"); // max-width should match value given to scalePage(), below
 					// force all images to zoom correctly and avoid cutting off images; requires removing the default style: IMG{max-width:1050px}
-					$("IMG").css("cssText","max-width: 100% !important;");
+					$("IMG").css("cssText", "max-width: 100% !important;");
 
 					// do scale function
 					scalePage(900); // set somewhat arbitrary hardcoded minWidth value
@@ -262,8 +265,9 @@ $(document).ready(function () {
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
 		// Footer Links: Edit
-	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target','_blank').prop('class','');
-	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target','_blank');
+	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target', '_blank').prop('class', '');
+	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
+
 	// Footer Links: Add
 	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
 
