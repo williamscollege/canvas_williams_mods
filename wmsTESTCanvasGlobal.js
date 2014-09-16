@@ -8,8 +8,15 @@ $(document).ready(function () {
 		// Listen for completion of all AJAX calls, then insert the Learning Mode button
 		$(document).ajaxComplete(function () {
 			if ($("#wms_roster_btn_learning").length == 0) {
+
 				// Insert the Learning Mode button
 				$("DIV#content.container-fluid DIV DIV.v-gutter TABLE.roster").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
+
+				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
+				$("#addUsers").click(function(evt){
+					$("#create-users-step-1 p").text("Enter Unix names or Williams long-style email addresses. (Avoid short email format: ob1@williams.edu)");
+					$("#user_list_textarea").prop("placeholder", "ob1, pleia, Anakin.Skywalker@williams.edu, Jabba.T.Hutt@williams.edu");
+				});
 			}
 			else {
 				// Avoid creating duplicate buttons
