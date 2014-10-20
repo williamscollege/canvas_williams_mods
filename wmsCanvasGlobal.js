@@ -14,8 +14,8 @@ $(document).ready(function () {
 
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
 				$("#addUsers").click(function(evt){
-					$("#create-users-step-1 p").text("Enter Unix names or Williams long-style email addresses. (Avoid short email format: ob1@williams.edu)");
-					$("#user_list_textarea").prop("placeholder", "ob1, pleia, Anakin.Skywalker@williams.edu, Jabba.T.Hutt@williams.edu");
+					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
+					$("#user_list_textarea").prop("placeholder", "Examples: pleia, ob1@williams.edu");
 				});
 			}
 			else {
@@ -167,7 +167,7 @@ $(document).ready(function () {
 
 	// Url must match this pattern (Do not display "Presenter View" link on pages that display LTI iframes)
 	if (!window.location.href.match(/\/external_tools/ig)) {
-		$("NAV#breadcrumbs UL LI").last().after('<li style="float:right; background-image:none;"><div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div></li>');
+		$("NAV#breadcrumbs UL LI").first().before('<div id="wms_presenter_exit_btn" style="float: right;"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div>');
 	}
 
 	// Presenter View: Create custom toggle click state
