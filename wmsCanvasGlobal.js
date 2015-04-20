@@ -267,6 +267,40 @@ $(document).ready(function () {
 	}
 	;
 
+	/***********************************************
+	 ** Smart 404 - offer redirects for old-glow-style URLs
+	 ***********************************************/
+	if (document.title == 'Page Not Found') {
+	    var targetUrl = window.location.href; //.match(/\/courses\/\d+\/users/ig)) {
+	    
+	    //console.log('target url = '+targetUrl);
+	    //	    var pathRegex = /^https:\/\/.*?\/(.*)$/;
+	    //	    var targetPath = (targetUrl.match(pathRegex))[1];
+	    var targetPath = (targetUrl.match(/^https:\/\/.*?\/(.*)$/))[1];
+	    
+	    var attackCheck = /(script|onclick|cookie|attach_external_tab|window|onload)/i;
+	    var mightBeAttack = targetUrl.match(attackCheck) || targetPath.match(/http/i);
+
+	    //console.log('target path = '+targetPath);
+	    if (! mightBeAttack && targetPath) {
+		var pathLead = targetPath;
+		if (targetPath.indexOf('/') > -1) {
+		    pathLead = (targetPath.match(/^(.*?)\//))[1];
+		}
+		//console.log('path lead = '+pathLead);
+		var oldGlowPathLeads = ['course','user','my','blocks','mod','files'];
+		if (oldGlowPathLeads.indexOf(pathLead) > -1) {
+		    var oldGlowPath = 'http://oldglow.williams.edu/'+targetPath;
+		    //console.log('old-glow path: '+oldGlowPath);
+		    var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system:<br/><br/><b><a href="'+oldGlowPath+'">'+oldGlowPath+'</a></b><br/><br/>To find the corresponding course in the new version of Glow please use the Courses menu above.';
+		    $('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">'+userMessage+'</p>');
+		}
+	    } else if (mightBeAttack) {
+		var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glo\
+w system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system.<br/><br/>It looks like the URL you tried to visit might have a hacking attempt embedded in it, so it\'s not being shown as a click-able link into the old system. Please manually enter the URL in the address bar of your browser as<br/><br/><b>https://oldglow.williams.edu/<i>wherever your are trying to go</i></b><br/><br/> Contact the helpdesk at x4090 if you need assistance with this.';
+		$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">'+userMessage+'</p>');
+	    }
+	}
 
 	/***********************************************
 	 ** Footer/Branding Link Overrides
