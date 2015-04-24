@@ -265,7 +265,10 @@ $(document).ready(function () {
 		// Assignments (lacking arrow)
 		$("#assignments_menu_item").css("cssText", "margin-right: 10px !important;");
 	}
-	;
+	
+	// Navigation: Add 'Signup Sheets' to Account Level
+	// $("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="/somewhere" class="menu-item-no-drop">Signup Sheets</a></li>');
+
 
 	/***********************************************
 	 ** Smart 404 - offer redirects for old-glow-style URLs

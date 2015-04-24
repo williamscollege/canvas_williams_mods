@@ -319,11 +319,10 @@ BODY
 	background: transparent url("images/colorbar-3.png") no-repeat bottom center / 88px 6px !important;
 	margin-left: 13px !important;
 }
-/* Removed global link as it was removed
-#assignments_menu_item
+#wms_signup_sheets_menu_item
 {
 	background: transparent url("images/colorbar-4.png") no-repeat bottom center / 93px 6px !important;
-}*/
+}
 /*add padding for the narrowest top buckets*/
 A.menu-item-title, A.menu-item-no-drop
 {
