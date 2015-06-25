@@ -207,12 +207,11 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Customize UI: LOGIN PAGE
 	 ***********************************************/
-	if (window.location.href.match(/\/login/ig)) {
+	if (window.location.href.match(/\/login\/ldap/ig)) {
 		// change title of page (formerly: Log In to Canvas)
 		$(document).attr('title', 'Glow');
 
 		// change labels/text
-		$("#login_form label[for=pseudonym_session_unique_id]>span").text("Username");
 		$("#login_forgot_password").text("Forgot password?");
 
 		// add tabindex attributes
@@ -230,8 +229,6 @@ $(document).ready(function () {
 		$("#footer-links").css("display", "none");
 
 		// MOBILE HACKS
-		// Add type=text to username input field (so that default styles apply to it same as to password field)
-		$("#login_form.front.face INPUT.input-block-level[name='pseudonym_session[unique_id]']").prop('type', 'text');
 		// Change labels/text
 		$("#login_form.front.face A.forgot-password").text("Forgot password?");
 	}
@@ -240,12 +237,9 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Customize UI: SELF ENROLL (ALTERNATE LOGIN PAGE)
 	 ***********************************************/
-	if (window.location.href.match(/\/enroll/ig)) {
-		// change instruction text
-		$($("#enroll_form>p")[1]).text("Please enter your username and password:");
-		// change labels/text
-		$("label[for=student_email]").text("Username");
-	}
+	// if (window.location.href.match(/\/enroll/ig)) {
+		// something custom
+	// }
 
 
 	/***********************************************
@@ -267,7 +261,7 @@ $(document).ready(function () {
 	}
 	
 	// Navigation: Add 'Signup Sheets' to Account Level
-	// $("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="/somewhere" class="menu-item-no-drop">Signup Sheets</a></li>');
+	$("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="https://glow.williams.edu/users/3755519/external_tools/148029" class="menu-item-no-drop">Signup Sheets</a></li>');
 
 
 	/***********************************************
