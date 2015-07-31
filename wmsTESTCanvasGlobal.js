@@ -237,9 +237,9 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Customize UI: SELF ENROLL (ALTERNATE LOGIN PAGE)
 	 ***********************************************/
-	// if (window.location.href.match(/\/enroll/ig)) {
-		// something custom
-	// }
+	if (window.location.href.match(/\/enroll/ig)) {
+		$("input[name=initial_action]").prev("p").text("Please enter your Username (without '@williams.edu') and password:");
+	}
 
 
 	/***********************************************
