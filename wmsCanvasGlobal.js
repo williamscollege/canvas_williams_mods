@@ -221,8 +221,8 @@ $(document).ready(function () {
 
 		// custom footer links (only on login page)
 		$("#modal-box-inner").append(
-			'<p id="wms-login-footer"><a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Williams Help">Williams Help</a>&nbsp;<span class="hint-text">&#124;</span>&nbsp;' +
-				'<a class="not_external hint-text" href="http://oit.williams.edu/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a></p>'
+			'<p id="wms-login-footer"><a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Williams Help">Williams Help</a></p>'
+			// '&nbsp;<span class="hint-text">&#124;</span>&nbsp;<a class="not_external hint-text" href="http://oit.williams.edu/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a>'
 		);
 
 		// hide standard footer links because login page has custom links (created above)
@@ -302,9 +302,9 @@ w system. If that\'s the case then you will need to use an \'oldglow\' address t
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-		// Footer Links: Edit
+	// Footer Links: Edit
 	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target', '_blank').prop('class', '');
-	$("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
+	// $("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
 
 	// Footer Links: Add
 	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
