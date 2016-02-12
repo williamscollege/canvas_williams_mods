@@ -3,15 +3,14 @@ $(document).ready(function () {
 	/***********************************************
 	 ** People: Add Face Book and Learning Mode
 	 ***********************************************/
+
 	// Url must match this pattern
 	if (window.location.href.match(/\/courses\/\d+\/users/ig)) {
 		// Listen for completion of all AJAX calls, then insert the Learning Mode button
 		$(document).ajaxComplete(function () {
 			if ($("#wms_roster_btn_learning").length == 0) {
-
 				// Insert the Learning Mode button
-				$("DIV#content.container-fluid DIV DIV.v-gutter TABLE.roster").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
-
+				$("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
 				$("#addUsers").click(function (evt) {
 					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
@@ -57,7 +56,7 @@ $(document).ready(function () {
 
 				// Create array to copy desired contents
 				var createGrid = "";
-				var extractHTMLObjects = $("TABLE.roster TBODY TR.rosterUser");
+				var extractHTMLObjects = $("#content TABLE.roster.ic-Table TBODY TR.rosterUser");
 				$.each(extractHTMLObjects, function (index, value) {
 					// console.log(index + "/" + $(value).html()); // produces: 5/[object HTMLTableCellElement]
 					var img = $(this).find('td:nth-child(1)').html();
@@ -70,9 +69,9 @@ $(document).ready(function () {
 				createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
 
 				// Display grid (add it to DOM)
-				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").before(createGrid);
+				$("#content TABLE.roster.ic-Table").before(createGrid);
 				// Hide Canvas default student table
-				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").addClass("hide");
+				$("#content TABLE.roster.ic-Table").addClass("hide");
 			}, function () {
 				// Turn learning mode: OFF
 				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "(Photos viewable on-campus or via VPN)");
@@ -81,7 +80,7 @@ $(document).ready(function () {
 				// Remove grid from DOM
 				$("#wms_roster_grid").remove();
 				// Restore Canvas default student table
-				$("TABLE.roster.table.table-hover.table-striped.table-condensed.table-vertically-center").removeClass("hide");
+				$("#content TABLE.roster.ic-Table").removeClass("hide");
 			});
 
 		}); // END OF: (document).ajaxComplete
@@ -97,6 +96,7 @@ $(document).ready(function () {
 	 * @return {Void}
 	 * author of scalePage fxn: http://binarystash.blogspot.com/2013/04/scaling-entire-page-through-css3.html
 	 */
+	/*
 	function scalePage(minWidth) {
 
 		//Check parameters
@@ -202,7 +202,7 @@ $(document).ready(function () {
 		};
 	})(jQuery);
 	$("#wms_presenter_exit_btn").togglePresenterView();
-
+*/
 
 	/***********************************************
 	 ** Customize UI: LOGIN PAGE
@@ -215,23 +215,27 @@ $(document).ready(function () {
 		$("#login_forgot_password").text("Forgot password?");
 
 		// add tabindex attributes
-		$("#login_form INPUT#pseudonym_session_unique_id").prop('tabindex', '1');
-		$("#login_form INPUT#pseudonym_session_password").prop('tabindex', '2');
-		$("#login_form BUTTON.btn-primary").prop('tabindex', '3');
+		$("#login_form INPUT#pseudonym_session_unique_id").prop('placeholder','Username').prop('tabindex', '1');
+		$("#login_form INPUT#pseudonym_session_password").prop('placeholder','Password').prop('tabindex', '2');
+		$("#login_form BUTTON.Button--login").prop('tabindex', '3');
+
+		// center the two input boxes using Canvas specific style
+		var controlName = $("#login_form > .ic-Form-control--login");
+		for(var i = 0; i < controlName.length; i+=2) {
+			controlName.slice(i, i+2).wrapAll('<div class="ic-Multi-input">');
+		}
 
 		// custom footer links (only on login page)
-		$("#modal-box-inner").append(
+		$("#footer").append(
 			'<p id="wms-login-footer">' +
-			'<a class="not_external" style="font-size: 115%;" href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
-			'<a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Williams Help">Williams Help</a>' +
+			'<a class="hint-text" style="font-size: 115%;" href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
+			'<a class="hint-text" href="http://oit.williams.edu/itech/glow/" target="_blank" title="Glow Help">Glow Help</a>' +
 			'</p>'
 		);
-		// '&nbsp;<span class="hint-text">&#124;</span>&nbsp;<a class="not_external hint-text" href="http://oit.williams.edu/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a>'
 
-		// hide standard footer links because login page has custom links (created above)
-		$("#footer-links").css("display", "none");
-
-		// MOBILE HACKS
+		// ***********************************************
+		// Customize UI: MOBILE LOGIN PAGE
+		// ***********************************************
 		// Change labels/text
 		$("#login_form.front.face A.forgot-password").text("Forgot password?");
 	}
@@ -248,28 +252,20 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Customize UI: INTERNAL PAGES
 	 ***********************************************/
-	// UI Internal pages: Correct gap between buckets and colorbar decorations
-	var wmsCoursesLabel = $("#courses_menu_item.menu-item A.menu-item-title").text();
-	if (wmsCoursesLabel.match(/Groups/ig)) {
-		// Courses & Groups
-		$("#courses_menu_item").css("cssText", "margin-right: -10px !important;");
-	}
-	else {
-		// Courses (lacking Groups)
-		$("#courses_menu_item").css("cssText", "margin-right: 16px !important;");
-	}
-	if (!$("#assignments_menu_item.menu-item A.menu-item-title i").hasClass("icon-mini-arrow-down")) {
-		// Assignments (lacking arrow)
-		$("#assignments_menu_item").css("cssText", "margin-right: 10px !important;");
-	}
+	/*extend existing partial horizontal rule to boundary edges*/
+	$("DIV.ic-app-nav-toggle-and-crumbs").addClass("wmsBreadCrumbsLine");
+	$("FOOTER.ic-app-footer").addClass("wmsFooterLine");
 
+	/*
 	// Navigation: Add 'Signup Sheets' to Account Level
 	$("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="https://glow.williams.edu/users/3755519/external_tools/170518" class="menu-item-no-drop">Signup Sheets</a></li>');
+*/
 
 
 	/***********************************************
 	 ** Smart 404 - offer redirects for old-glow-style URLs
 	 ***********************************************/
+	/*
 	if (document.title == 'Page Not Found') {
 		var targetUrl = window.location.href; //.match(/\/courses\/\d+\/users/ig)) {
 
@@ -301,26 +297,25 @@ $(document).ready(function () {
 			$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
 		}
 	}
-
+*/
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-		// Footer Links: Edit
-	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target', '_blank').prop('class', '');
-	// $("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
-
-	// Footer Links: Add
-	// $("#footer-links").append("<a href='http://www.williams.edu'>Williams</a>");
+	if (!window.location.href.match(/\/login\/ldap/ig) && !window.location.href.match(/\/enroll/ig)) {
+		// Internal pages only: add custom footer link
+		$("footer").append('<div class="ic-app-footer__links"><a href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" title="Williams policy on recording and distribution of course materials" target="_blank">Williams policy on recording and distribution of course materials</a></div>');
+	}
 
 
 	/***********************************************
 	 ** Add Google Analytics
 	 ***********************************************/
+/*
 	(function (i, s, o, g, r, a, m) {
 		i['GoogleAnalyticsObject'] = r;
 		i[r] = i[r] || function () {
-			(i[r].q = i[r].q || []).push(arguments)
-		}, i[r].l = 1 * new Date();
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
 		a = s.createElement(o),
 			m = s.getElementsByTagName(o)[0];
 		a.async = 1;
@@ -330,6 +325,7 @@ $(document).ready(function () {
 
 	ga('create', 'UA-10912569-3', 'auto');
 	ga('send', 'pageview');
+*/
 
 
 }); // END OF: (document).ready

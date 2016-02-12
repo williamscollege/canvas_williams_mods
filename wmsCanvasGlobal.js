@@ -13,7 +13,7 @@ $(document).ready(function () {
 				$("DIV#content.container-fluid DIV DIV.v-gutter TABLE.roster").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
 
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
-				$("#addUsers").click(function(evt){
+				$("#addUsers").click(function (evt) {
 					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
 					$("#user_list_textarea").prop("placeholder", "Examples: pleia, ob1@williams.edu");
 				});
@@ -62,7 +62,7 @@ $(document).ready(function () {
 					// console.log(index + "/" + $(value).html()); // produces: 5/[object HTMLTableCellElement]
 					var img = $(this).find('td:nth-child(1)').html();
 					var name = $(this).find('td:nth-child(2)').html();
-					var role = $(this).find('td:nth-child(5)').text();
+					var role = $(this).find('td:nth-child(6)').text();
 
 					var user_info = img + "<small class=\"\">" + name + "</small><br /><small class=\"\">" + role + "</small>";
 					createGrid += "<div class=\"wms_roster_user\">" + user_info + "</div>";
@@ -221,9 +221,12 @@ $(document).ready(function () {
 
 		// custom footer links (only on login page)
 		$("#modal-box-inner").append(
-			'<p id="wms-login-footer"><a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Williams Help">Williams Help</a></p>'
-			// '&nbsp;<span class="hint-text">&#124;</span>&nbsp;<a class="not_external hint-text" href="http://oit.williams.edu/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a>'
+			'<p id="wms-login-footer">' +
+			'<a class="not_external" style="font-size: 115%;" href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
+			'<a class="not_external hint-text" href="http://oit.williams.edu/glow/" target="_blank" title="Williams Help">Williams Help</a>' +
+			'</p>'
 		);
+		// '&nbsp;<span class="hint-text">&#124;</span>&nbsp;<a class="not_external hint-text" href="http://oit.williams.edu/glow/terms-of-service/" target="_blank" title="Terms of service">Terms of service</a>'
 
 		// hide standard footer links because login page has custom links (created above)
 		$("#footer-links").css("display", "none");
@@ -259,50 +262,50 @@ $(document).ready(function () {
 		// Assignments (lacking arrow)
 		$("#assignments_menu_item").css("cssText", "margin-right: 10px !important;");
 	}
-	
+
 	// Navigation: Add 'Signup Sheets' to Account Level
-	$("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="https://glow.williams.edu/users/3755519/external_tools/148029" class="menu-item-no-drop">Signup Sheets</a></li>');
+	$("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="https://glow.williams.edu/users/3755519/external_tools/170518" class="menu-item-no-drop">Signup Sheets</a></li>');
 
 
 	/***********************************************
 	 ** Smart 404 - offer redirects for old-glow-style URLs
 	 ***********************************************/
 	if (document.title == 'Page Not Found') {
-	    var targetUrl = window.location.href; //.match(/\/courses\/\d+\/users/ig)) {
-	    
-	    //console.log('target url = '+targetUrl);
-	    //	    var pathRegex = /^https:\/\/.*?\/(.*)$/;
-	    //	    var targetPath = (targetUrl.match(pathRegex))[1];
-	    var targetPath = (targetUrl.match(/^https:\/\/.*?\/(.*)$/))[1];
-	    
-	    var attackCheck = /(script|onclick|cookie|attach_external_tab|window|onload)/i;
-	    var mightBeAttack = targetUrl.match(attackCheck) || targetPath.match(/http/i);
+		var targetUrl = window.location.href; //.match(/\/courses\/\d+\/users/ig)) {
 
-	    //console.log('target path = '+targetPath);
-	    if (! mightBeAttack && targetPath) {
-		var pathLead = targetPath;
-		if (targetPath.indexOf('/') > -1) {
-		    pathLead = (targetPath.match(/^(.*?)\//))[1];
+		//console.log('target url = '+targetUrl);
+		//	    var pathRegex = /^https:\/\/.*?\/(.*)$/;
+		//	    var targetPath = (targetUrl.match(pathRegex))[1];
+		var targetPath = (targetUrl.match(/^https:\/\/.*?\/(.*)$/))[1];
+
+		var attackCheck = /(script|onclick|cookie|attach_external_tab|window|onload)/i;
+		var mightBeAttack = targetUrl.match(attackCheck) || targetPath.match(/http/i);
+
+		//console.log('target path = '+targetPath);
+		if (!mightBeAttack && targetPath) {
+			var pathLead = targetPath;
+			if (targetPath.indexOf('/') > -1) {
+				pathLead = (targetPath.match(/^(.*?)\//))[1];
+			}
+			//console.log('path lead = '+pathLead);
+			var oldGlowPathLeads = ['course', 'user', 'my', 'blocks', 'mod', 'files'];
+			if (oldGlowPathLeads.indexOf(pathLead) > -1) {
+				var oldGlowPath = 'http://oldglow.williams.edu/' + targetPath;
+				//console.log('old-glow path: '+oldGlowPath);
+				var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system:<br/><br/><b><a href="' + oldGlowPath + '">' + oldGlowPath + '</a></b><br/><br/>To find the corresponding course in the new version of Glow please use the Courses menu above.';
+				$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
+			}
 		}
-		//console.log('path lead = '+pathLead);
-		var oldGlowPathLeads = ['course','user','my','blocks','mod','files'];
-		if (oldGlowPathLeads.indexOf(pathLead) > -1) {
-		    var oldGlowPath = 'http://oldglow.williams.edu/'+targetPath;
-		    //console.log('old-glow path: '+oldGlowPath);
-		    var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system:<br/><br/><b><a href="'+oldGlowPath+'">'+oldGlowPath+'</a></b><br/><br/>To find the corresponding course in the new version of Glow please use the Courses menu above.';
-		    $('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">'+userMessage+'</p>');
+		else if (mightBeAttack) {
+			var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system.<br/><br/>It looks like the URL you tried to visit might have a hacking attempt embedded in it, so it\'s not being shown as a click-able link into the old system. Please manually enter the URL in the address bar of your browser as<br/><br/><b>https://oldglow.williams.edu/<i>wherever your are trying to go</i></b><br/><br/> Contact the helpdesk at x4090 if you need assistance with this.';
+			$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
 		}
-	    } else if (mightBeAttack) {
-		var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glo\
-w system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system.<br/><br/>It looks like the URL you tried to visit might have a hacking attempt embedded in it, so it\'s not being shown as a click-able link into the old system. Please manually enter the URL in the address bar of your browser as<br/><br/><b>https://oldglow.williams.edu/<i>wherever your are trying to go</i></b><br/><br/> Contact the helpdesk at x4090 if you need assistance with this.';
-		$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">'+userMessage+'</p>');
-	    }
 	}
 
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-	// Footer Links: Edit
+		// Footer Links: Edit
 	$("#footer-links A[href='http://help.instructure.com/']").text('Williams Help').prop('href', 'http://oit.williams.edu/glow/').prop('target', '_blank').prop('class', '');
 	// $("#footer-links A[href='http://www.instructure.com/policies/terms-of-use']").prop('href', 'http://oit.williams.edu/glow/terms-of-service/').prop('target', '_blank');
 

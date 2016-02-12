@@ -262,10 +262,6 @@ update the background URL*/
 /**********************************************
 ** Customize UI: INTERNAL PAGES
 **********************************************/
-BODY
-{
-	background: #E4E6E8 no-repeat !important;
-}
 /*Replace the top gray background with something that matches your colors. If you don't use an image, you need to remove ours*/
 #header
 {
