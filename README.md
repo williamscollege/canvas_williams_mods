@@ -67,8 +67,8 @@
  - Canvas Test Server requires: wmsTESTCanvasGlobal.css, wmsTESTCanvasGlobal.js, /images
  - Canvas already provides jQuery
 
-#### Developer Kudos to:
-[[https://github.com/williamscollege/canvas_williams_mods/tree/master/images/broswerstack-logo.png|alt="Free, open source, live, web-based browser testing"]]
+#### Developer Kudos:
+[[https://github.com/williamscollege/canvas_williams_mods/tree/master/images/broswerstack-logo.png|alt=Free, open source, live, web-based browser testing]]
 
 #### LICENSE
 
