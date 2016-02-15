@@ -68,7 +68,8 @@
  - Canvas already provides jQuery
 
 #### Developer Kudos:
-[[https://github.com/williamscollege/canvas_williams_mods/tree/master/images/broswerstack-logo.png|alt=Free, open source, live, web-based browser testing]]
+[Free, open source, live, web-based browser testing](images/broswerstack-logo.png)
+[[images/broswerstack-logo.png|alt=Free, open source, live, web-based browser testing]]
 
 #### LICENSE
 
