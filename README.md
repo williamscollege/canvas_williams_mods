@@ -15,6 +15,8 @@
 
 ## FEATURES
 
+- NOTE: As of 2016, Canvas has a new UI. The files "wms_v2_CanvasGlobal.js/.css" reflect their new UI.
+
 #### People: Add Face Book and Learning Mode
 
  - Add Button: Automatically insert a "Face Book" button on Canvas' "People" page
@@ -64,6 +66,9 @@
  - Canvas Live Server requires: wmsCanvasGlobal.css, wmsCanvasGlobal.js, /images
  - Canvas Test Server requires: wmsTESTCanvasGlobal.css, wmsTESTCanvasGlobal.js, /images
  - Canvas already provides jQuery
+
+#### Developer Kudos to:
+[[https://github.com/williamscollege/canvas_williams_mods/tree/master/images/broswerstack-logo.png|alt="Free, open source, live, web-based browser testing"]]
 
 #### LICENSE
 
