@@ -54,54 +54,55 @@
 /**********************************************
 ** Add Presenter View (zoom main div; hide all other columns)
 **********************************************/
-/*Add custom classes for use with jQuery's addClass and removeClass methods*/
-/*
-.wmsDisplayNone
-{
+#wms_presenter_breadcrumb {
+	margin: 0 0 0 150px !important;
+}
+
+.wmsDisplayNone {
 	display: none !important;
 }
-.wmsMarginZero
-{
+
+.wmsMarginZero {
 	margin: 0px !important;
 }
-.wmsPresenterExit
-{
+
+.wmsPresenterExit {
+	z-index: 1000 !important;
 	position: fixed;
 	top: 0px;
 	left: 0px;
-	background-color: #0096db;
 	cursor: pointer;
-	border: 1px solid #373737;
+	background-color: #0096db;
+	border: 1px solid #006796;
 	width: 20px;
 	height: 100%;
-	opacity: .7;
 }
-.wmsPresenterExit:hover
-{
-	opacity: 1;
-}
-*/
-/*Rotate text of "exit button"*/
 
+.wmsPresenterExit:hover {
+	background-color: #0085c2;
+	border: 1px solid #006594;
+}
+
+/*Rotate internal text of "exit button"*/
 .wmsPresenterRotate {
 	position: absolute;
 	top: 350px;
 	-webkit-transform: rotate(-90deg);
 	-ff-transform: rotate(-90deg);
-	transform: rotate(-90deg); /*this rotates the internal text, not the bounding box*/
+	transform: rotate(-90deg);
 	width: 20px;
 	font-weight: bold;
-	color: #000000;
+	color: #FFFFFF;
 }
 
 /**********************************************
 ** Customize UI: LOGIN PAGE
 **********************************************/
 /*remove Canvas gradient*/
-.ic-Login-Body
-{
+.ic-Login-Body {
 	background: none no-repeat #F0F0F0 !important;
 }
+
 /*use custom logo and resize the login box*/
 .ic-Login {
 	background: #FFFFFF url("https://apps.williams.edu/glow/images/custom-login-image.jpg") no-repeat center top / 1140px 400px !important;
@@ -109,71 +110,80 @@
 	width: 1140px !important;
 	height: 660px !important;
 }
+
 .ic-Login__container {
 	margin: 390px 0 0 0 !important;
 }
+
 .ic-Login__content {
 	width: 490px !important;
 	border: 0px none !important;
 	padding: 0px !important;
 }
+
 .ic-Login__innerContent {
 	padding: 0px !important;
 }
+
 .ic-Login__header {
 	display: none !important;
 }
+
 .ic-Login__body {
 	margin-top: 47px !important;
 	padding: 0px !important;
-	/*background: pink !important;*/
 }
+
 /*change: color of text, links, labels, decrease font size*/
 #login_form, #login_form A, #login_form LABEL {
 	color: #666666 !important;
 	font-size: 96% !important;
 }
+
 #login_form .ic-Form-control--login {
 	margin: 0px auto !important;
 }
+
 .ic-Label {
 	display: none !important;
 }
+
 #login_form INPUT#pseudonym_session_unique_id, #login_form INPUT#pseudonym_session_password {
 	width: 235px !important;
 	height: 56px !important;
 	background: #EDEBE9 no-repeat !important;
 	border: 6px solid #f1f0ee !important;
-	/*force box-shadow in IE w/o effecting other browsers*/
 	box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.4) !important;
-	background-clip: border-box !important;
 	outline: none !important;
 	color: #303030 !important;
 	font-size: 96% !important;
 }
+
 .ic-Login__actions {
 	padding: 10px 0 0 5px !important;
 }
+
 #pseudonym_session_remember_me {
 	margin: -28px 0 0 0 !important;
 }
+
 .ic-Login__actions-timeout label {
 	margin: -13px 0 0 0 !important;
 	color: green !important;
 	vertical-align: text-top !important;
 }
+
 #login_forgot_password {
 	margin: -31px 7px 0 0 !important;
 	float: right !important;
 }
 
-/*login button color*/
+/*login button color with gentle transition for hover action*/
 #login_form .btn-primary, #login_form .ic-Login__actions button.Button--login {
 	background-color: #512698 !important;
 	border-color: #98A0A5 !important;
 	height: 42px !important;
 	margin: 2px 10px 0px -305px !important;
-	/*give the button a nice transition animation from normal to onhover 512698*/
 	-webkit-transition: All 0.3s ease !important;
 	-moz-transition: All 0.3s ease !important;
 	-o-transition: All 0.3s ease !important;
@@ -214,10 +224,10 @@ P#wms-login-footer A {
 }
 
 /*error alert message: remove box shadow*/
+/*do not set width, as internal error msgs are negatively affected*/
 #unauthorized_holder, #unauthorized_holder #unauthorized_message {
 	box-shadow: none !important;
 	margin: 0 auto 0 !important;
-	/*note: do not set width, as internal error msgs are negatively affected*/
 }
 
 /**********************************************
@@ -262,15 +272,16 @@ P#wms-login-footer A {
 	background: transparent url("images/colorbar-4.png") no-repeat bottom center / 93px 6px !important;
 }
 */
-/*add interior column colors: left column*/
-#left-side{
+/*edit left column*/
+#left-side {
 	border-right: 1px solid #f0f0f0 !important;
-	/*background-color: #f0f0f0;*/
 }
-/*add interior column colors: right column*/
+
+/*edit right column*/
 #right-side-wrapper {
 	background-color: #f0f0f0;
 }
+
 /*extend existing partial horizontal rule to boundary edges*/
 .wmsBreadCrumbsLine {
 	border-bottom: 1px solid #d6d6d6 !important;

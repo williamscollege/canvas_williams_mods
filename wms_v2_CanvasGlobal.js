@@ -96,7 +96,7 @@ $(document).ready(function () {
 	 * @return {Void}
 	 * author of scalePage fxn: http://binarystash.blogspot.com/2013/04/scaling-entire-page-through-css3.html
 	 */
-	/*
+
 	function scalePage(minWidth) {
 
 		//Check parameters
@@ -167,42 +167,38 @@ $(document).ready(function () {
 
 	// Url must match this pattern (Do not display "Presenter View" link on pages that display LTI iframes)
 	if (!window.location.href.match(/\/external_tools/ig)) {
-		$("NAV#breadcrumbs UL LI").first().before('<div id="wms_presenter_exit_btn" style="float: right;"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone">Exit&nbsp;Presenter&nbsp;View</div><a id="wms_presenter_breadcrumb" class="btn-mini" href="#" title="Enable Presenter View"><i class="icon-off"></i> Presenter View</a>&nbsp;&nbsp;</div>');
+		$("NAV#breadcrumbs").after('<div id="wms_presenter_breadcrumb"><a href="#" class="btn btn-primary" title="Enable Presenter View"><i class="icon-off"></i>&nbsp;Presenter&nbsp;View</a></div>');
+		$("#content").prepend('<div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone" title="Exit Presenter View3">Exit&nbsp;Presenter&nbsp;View</div></div>');
 	}
 
-	// Presenter View: Create custom toggle click state
-	(function ($) {
-		$.fn.togglePresenterView = function () {
-			var ele = this;
-			ele.data('clickState', 0);
-			ele.click(function () {
-				if (ele.data('clickState')) {
-					// refresh page
-					location.reload();
-				}
-				else {
-					// hide breadcrumb link and page elements
-					$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
-					$("DIV#header").addClass("wmsDisplayNone");
-					$("DIV#left-side").addClass("wmsDisplayNone");
-					$("DIV#right-side-wrapper").addClass("wmsDisplayNone");
-					$("DIV#main").addClass("wmsMarginZero").css("cssText", "padding-left: 25px;max-width: 900px !important;"); // max-width should match value given to scalePage(), below
-					// force all images to zoom correctly and avoid cutting off images; requires removing the default style: IMG{max-width:1050px}
-					$("IMG").css("cssText", "max-width: 100% !important;");
+	// Exit Presenter View: reload page
+	$("#wms_presenter_exit_btn").click(function (evt) {
+		location.reload();
+	});
 
-					// do scale function
-					scalePage(900); // set somewhat arbitrary hardcoded minWidth value
+	// Enable Presenter View
+	$("#wms_presenter_breadcrumb").click(function (evt) {
+		// hide breadcrumb link and all unnecessary page elements
+		$("BODY").removeClass("course-menu-expanded");
+		$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
+		$("HEADER").addClass("wmsDisplayNone");
+		$(".ic-app-nav-toggle-and-crumbs").addClass("wmsDisplayNone");
+		$("#left-side").addClass("wmsDisplayNone");
+		$("#right-side-wrapper").addClass("wmsDisplayNone");
+		$("#main").addClass("wmsMarginZero").css("cssText", "padding-left: 25px;max-width: 900px !important;"); // max-width should match value given to scalePage(), below
+		$("#wrapper-container").addClass("wmsMarginZero");
+		$(".ic-app-main-layout-horizontal").addClass("wmsMarginZero");
+		// force all images to zoom correctly and avoid cutting off images; requires removing the default style: IMG{max-width:1050px}
+		$("IMG").css("cssText", "max-width: 100% !important;");
 
-					// show exit button (on extreme left side)
-					$("#wms_presenter_exit_btn").addClass("wmsPresenterExit").prop("title", "Exit Presenter View");
-					$("#wms_presenter_exit_text").removeClass("wmsDisplayNone");
-				}
-				ele.data('clickState', !ele.data('clickState'));
-			});
-		};
-	})(jQuery);
-	$("#wms_presenter_exit_btn").togglePresenterView();
-*/
+		// do scale function
+		scalePage(900); // set somewhat arbitrary hardcoded minWidth value
+
+		// show exit button (on extreme left side)
+		$("#wms_presenter_exit_btn").addClass("wmsPresenterExit");
+		$("#wms_presenter_exit_text").removeClass("wmsDisplayNone");
+	});
+
 
 	/***********************************************
 	 ** Customize UI: LOGIN PAGE
@@ -215,14 +211,14 @@ $(document).ready(function () {
 		$("#login_forgot_password").text("Forgot password?");
 
 		// add tabindex attributes
-		$("#login_form INPUT#pseudonym_session_unique_id").prop('placeholder','Username').prop('tabindex', '1');
-		$("#login_form INPUT#pseudonym_session_password").prop('placeholder','Password').prop('tabindex', '2');
+		$("#login_form INPUT#pseudonym_session_unique_id").prop('placeholder', 'Username').prop('tabindex', '1');
+		$("#login_form INPUT#pseudonym_session_password").prop('placeholder', 'Password').prop('tabindex', '2');
 		$("#login_form BUTTON.Button--login").prop('tabindex', '3');
 
 		// center the two input boxes using Canvas specific style
 		var controlName = $("#login_form > .ic-Form-control--login");
-		for(var i = 0; i < controlName.length; i+=2) {
-			controlName.slice(i, i+2).wrapAll('<div class="ic-Multi-input">');
+		for (var i = 0; i < controlName.length; i += 2) {
+			controlName.slice(i, i + 2).wrapAll('<div class="ic-Multi-input">');
 		}
 
 		// custom footer links (only on login page)
@@ -257,47 +253,47 @@ $(document).ready(function () {
 	$("FOOTER.ic-app-footer").addClass("wmsFooterLine");
 
 	/*
-	// Navigation: Add 'Signup Sheets' to Account Level
-	$("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="https://glow.williams.edu/users/3755519/external_tools/170518" class="menu-item-no-drop">Signup Sheets</a></li>');
-*/
+	 // Navigation: Add 'Signup Sheets' to Account Level
+	 $("UL#menu").append('<li id="wms_signup_sheets_menu_item" class="menu-item"><a href="https://glow.williams.edu/users/3755519/external_tools/170518" class="menu-item-no-drop">Signup Sheets</a></li>');
+	 */
 
 
 	/***********************************************
 	 ** Smart 404 - offer redirects for old-glow-style URLs
 	 ***********************************************/
 	/*
-	if (document.title == 'Page Not Found') {
-		var targetUrl = window.location.href; //.match(/\/courses\/\d+\/users/ig)) {
+	 if (document.title == 'Page Not Found') {
+	 var targetUrl = window.location.href; //.match(/\/courses\/\d+\/users/ig)) {
 
-		//console.log('target url = '+targetUrl);
-		//	    var pathRegex = /^https:\/\/.*?\/(.*)$/;
-		//	    var targetPath = (targetUrl.match(pathRegex))[1];
-		var targetPath = (targetUrl.match(/^https:\/\/.*?\/(.*)$/))[1];
+	 //console.log('target url = '+targetUrl);
+	 //	    var pathRegex = /^https:\/\/.*?\/(.*)$/;
+	 //	    var targetPath = (targetUrl.match(pathRegex))[1];
+	 var targetPath = (targetUrl.match(/^https:\/\/.*?\/(.*)$/))[1];
 
-		var attackCheck = /(script|onclick|cookie|attach_external_tab|window|onload)/i;
-		var mightBeAttack = targetUrl.match(attackCheck) || targetPath.match(/http/i);
+	 var attackCheck = /(script|onclick|cookie|attach_external_tab|window|onload)/i;
+	 var mightBeAttack = targetUrl.match(attackCheck) || targetPath.match(/http/i);
 
-		//console.log('target path = '+targetPath);
-		if (!mightBeAttack && targetPath) {
-			var pathLead = targetPath;
-			if (targetPath.indexOf('/') > -1) {
-				pathLead = (targetPath.match(/^(.*?)\//))[1];
-			}
-			//console.log('path lead = '+pathLead);
-			var oldGlowPathLeads = ['course', 'user', 'my', 'blocks', 'mod', 'files'];
-			if (oldGlowPathLeads.indexOf(pathLead) > -1) {
-				var oldGlowPath = 'http://oldglow.williams.edu/' + targetPath;
-				//console.log('old-glow path: '+oldGlowPath);
-				var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system:<br/><br/><b><a href="' + oldGlowPath + '">' + oldGlowPath + '</a></b><br/><br/>To find the corresponding course in the new version of Glow please use the Courses menu above.';
-				$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
-			}
-		}
-		else if (mightBeAttack) {
-			var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system.<br/><br/>It looks like the URL you tried to visit might have a hacking attempt embedded in it, so it\'s not being shown as a click-able link into the old system. Please manually enter the URL in the address bar of your browser as<br/><br/><b>https://oldglow.williams.edu/<i>wherever your are trying to go</i></b><br/><br/> Contact the helpdesk at x4090 if you need assistance with this.';
-			$('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
-		}
-	}
-*/
+	 //console.log('target path = '+targetPath);
+	 if (!mightBeAttack && targetPath) {
+	 var pathLead = targetPath;
+	 if (targetPath.indexOf('/') > -1) {
+	 pathLead = (targetPath.match(/^(.*?)\//))[1];
+	 }
+	 //console.log('path lead = '+pathLead);
+	 var oldGlowPathLeads = ['course', 'user', 'my', 'blocks', 'mod', 'files'];
+	 if (oldGlowPathLeads.indexOf(pathLead) > -1) {
+	 var oldGlowPath = 'http://oldglow.williams.edu/' + targetPath;
+	 //console.log('old-glow path: '+oldGlowPath);
+	 var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system:<br/><br/><b><a href="' + oldGlowPath + '">' + oldGlowPath + '</a></b><br/><br/>To find the corresponding course in the new version of Glow please use the Courses menu above.';
+	 $('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
+	 }
+	 }
+	 else if (mightBeAttack) {
+	 var userMessage = 'Glow has been upgraded, and the new system uses a different style of linking to courses and other content. Based on the URL, it looks like you might have been trying to get to a page in the old glow system. If that\'s the case then you will need to use an \'oldglow\' address to access the archive of the old system.<br/><br/>It looks like the URL you tried to visit might have a hacking attempt embedded in it, so it\'s not being shown as a click-able link into the old system. Please manually enter the URL in the address bar of your browser as<br/><br/><b>https://oldglow.williams.edu/<i>wherever your are trying to go</i></b><br/><br/> Contact the helpdesk at x4090 if you need assistance with this.';
+	 $('#content div').prepend('<p style="margin-top: 12px; font-size: 16px; padding: 6px; border: 2px solid red;">' + userMessage + '</p>');
+	 }
+	 }
+	 */
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
@@ -310,22 +306,22 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Add Google Analytics
 	 ***********************************************/
-/*
-	(function (i, s, o, g, r, a, m) {
-		i['GoogleAnalyticsObject'] = r;
-		i[r] = i[r] || function () {
-				(i[r].q = i[r].q || []).push(arguments)
-			}, i[r].l = 1 * new Date();
-		a = s.createElement(o),
-			m = s.getElementsByTagName(o)[0];
-		a.async = 1;
-		a.src = g;
-		m.parentNode.insertBefore(a, m)
-	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	/*
+	 (function (i, s, o, g, r, a, m) {
+	 i['GoogleAnalyticsObject'] = r;
+	 i[r] = i[r] || function () {
+	 (i[r].q = i[r].q || []).push(arguments)
+	 }, i[r].l = 1 * new Date();
+	 a = s.createElement(o),
+	 m = s.getElementsByTagName(o)[0];
+	 a.async = 1;
+	 a.src = g;
+	 m.parentNode.insertBefore(a, m)
+	 })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-	ga('create', 'UA-10912569-3', 'auto');
-	ga('send', 'pageview');
-*/
+	 ga('create', 'UA-10912569-3', 'auto');
+	 ga('send', 'pageview');
+	 */
 
 
 }); // END OF: (document).ready
