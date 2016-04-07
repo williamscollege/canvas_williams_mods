@@ -266,12 +266,6 @@ P#wms-login-footer A {
 /**********************************************
 ** Customize UI: INTERNAL PAGES
 **********************************************/
-/*
-#wms_signup_sheets_menu_item
-{
-	background: transparent url("images/colorbar-4.png") no-repeat bottom center / 93px 6px !important;
-}
-*/
 /*edit left column*/
 #left-side {
 	border-right: 1px solid #f0f0f0 !important;
