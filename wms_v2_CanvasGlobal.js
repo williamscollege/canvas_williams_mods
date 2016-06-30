@@ -242,6 +242,8 @@ $(document).ready(function () {
 	 ***********************************************/
 	if (window.location.href.match(/\/enroll/ig)) {
 		$("input[name=initial_action]").prev("p").text("Please enter your Username (without '@williams.edu') and password:");
+		$("HEADER.ic-Login-confirmation__header").css("cssText", "background-color: #333333 !important;");
+		$("IMG.ic-Login-confirmation__logo").attr("src","https://apps.williams.edu/glow/images/enroll-login.png").prop("alt","Williams College - GLOW");
 	}
 
 
@@ -253,7 +255,7 @@ $(document).ready(function () {
 	$("FOOTER.ic-app-footer").addClass("wmsFooterLine");
 
 	// Navigation: Add 'Signup Sheets' to Account Level
-	$("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="https://glow.williams.edu/users/3755519/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
+	$("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="https://glow.williams.edu/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
 
 
 	/***********************************************
