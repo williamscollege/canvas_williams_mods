@@ -168,7 +168,7 @@ $(document).ready(function () {
 	// Url must match this pattern (Do not display "Presenter View" link on pages that display LTI iframes)
 	if (!window.location.href.match(/\/external_tools/ig)) {
 		$("NAV#breadcrumbs").after('<div id="wms_presenter_breadcrumb"><a href="#" class="btn btn-primary" title="Enable Presenter View"><i class="icon-off"></i>&nbsp;Presenter&nbsp;View</a></div>');
-		$("#content").prepend('<div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone" title="Exit Presenter View3">Exit&nbsp;Presenter&nbsp;View</div></div>');
+		$("#application").prepend('<div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone" title="Exit Presenter View3">Exit&nbsp;Presenter&nbsp;View</div></div>');
 	}
 
 	// Exit Presenter View: reload page

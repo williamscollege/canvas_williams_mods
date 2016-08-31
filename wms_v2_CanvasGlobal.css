@@ -276,6 +276,11 @@ P#wms-login-footer A {
 	background-color: #f0f0f0;
 }
 
+/*hide the Canvas Inbox*/
+LI A#global_nav_conversations_link {
+    display: none;
+}
+
 /*extend existing partial horizontal rule to boundary edges*/
 .wmsBreadCrumbsLine {
 	border-bottom: 1px solid #d6d6d6 !important;

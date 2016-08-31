@@ -1,21 +1,16 @@
-# Williams College: Canvas Mods
+# Canvas Modifications
 
 **Summary:** Various modifications and customizations for our Instructure Canvas learning management system (LMS). Separate files make it easier to test independently on live and test servers.
 
-**Author:** Developed by David Keiser-Clark (dwk2@williams.edu) for the Office for Information Technology at Williams College
-
-**Follow:** If you have collaborative ideas or want to be notified of changes, please email me.
-
-**GitHub:** [Williams College: canvas_williams_mods](https://github.com/williamscollege/canvas_williams_mods)
+**Author:** David Keiser-Clark (dwk2@williams.edu), Office for Information Technology, Williams College
 
 ## SCREENSHOTS
 
  - [People: Add Face Book and Learning Mode](http://www.screencast.com/t/KFZZo4VF2 "People: Add Face Book and Learning Mode") (screenshot)
  - [Add Presenter View](http://www.screencast.com/t/mclVJfL28 "Add Presenter View") (screenshot)
 
-## FEATURES
-
-- NOTE: As of 2016, Canvas has a new UI. The files "wms_v2_CanvasGlobal.js/.css" reflect their new UI.
+## DESCRIPTION
+These files reflect the current Canvas UI.
 
 #### People: Add Face Book and Learning Mode
 
