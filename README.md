@@ -3,7 +3,6 @@
 **Author:** David Keiser-Clark (dwk2@williams.edu), Office for Information Technology, Williams College
 
 ## SCREENSHOTS
-
  - [People: Add Face Book and Learning Mode](http://www.screencast.com/t/KFZZo4VF2 "People: Add Face Book and Learning Mode") (screenshot)
  - [Add Presenter View](http://www.screencast.com/t/mclVJfL28 "Add Presenter View") (screenshot)
 
@@ -32,36 +31,28 @@ Custom modifications for our Instructure Canvas learning management system (LMS)
  - Works with: All browsers, including mobile browsers (held in horizontal mode)
  - Intended Usage: classroom projector
 
-#### Customize UI: LOGIN PAGE
-
+#### LOGIN PAGE UI
  - Mobile: Completely overhauled the default mobile login page
  - Browser: Completely overhauled the default browser login page
  - Please refrain from reusing our design; you may use the code to create your own distinct override
 
-#### Customize UI: INTERNAL PAGES
-
+#### INTERNAL PAGES UI
  - Browser: Completely overhauled the default top navigation design of internal pages
  - Please refrain from reusing our design; you may use the code to create your own distinct override
 
-#### Footer/Branding Link Overrides
-
+#### FOOTER/BRANDING
  - Created overrides to point Help and Terms footer links to our own pages, and hide Canvas Twitter/FaceBook links
 
-#### Add Google Analytics
-
+#### GOOGLE ANALYTICS
  - Added code to enable our Google Analytics to track Canvas pages
  - Simply swap in your own Google Analytics "setAccount" name
 
 #### DEPENDENCIES
-
  - Canvas Live Server requires: wmsCanvasGlobal.css, wmsCanvasGlobal.js, /images
  - Canvas Test Server requires: wmsTESTCanvasGlobal.css, wmsTESTCanvasGlobal.js, /images
  - Canvas already provides jQuery
 
 #### LICENSE
-
-Copyright (c) 2014 David Keiser-Clark
-
-Dual licensed under the MIT and GPL licenses.
-
-Free as in Bacon.
+ - Copyright (c) 2014 David Keiser-Clark
+ - Dual licensed under the MIT and GPL licenses.
+ - Free as in Bacon.
