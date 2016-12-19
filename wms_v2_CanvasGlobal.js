@@ -9,8 +9,8 @@ $(document).ready(function () {
 		// Listen for completion of all AJAX calls, then insert the Learning Mode button
 		$(document).ajaxComplete(function () {
 			if ($("#wms_roster_btn_learning").length == 0) {
-				// Insert the Learning Mode button
-				$("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
+                // Insert the Learning Mode button
+                $("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a>&nbsp;&nbsp;<a href="#" id="wms_roster_shuffle" title=""></a><br /><br /></div>');
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
 				$("#addUsers").click(function (evt) {
 					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
@@ -68,7 +68,15 @@ $(document).ready(function () {
 				});
 				createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
 
-				// Display grid (add it to DOM)
+                // Add the shuffle hyperlink
+                $("#wms_roster_shuffle").text("Shuffle").prop("title", "Reorder the roster");
+                $("a#wms_roster_shuffle").click(function() {
+                    //shuffle the grid elements
+                    $("div#wms_roster_grid").randomize("div.wms_roster_user");
+					});
+
+
+                // Display grid (add it to DOM)
 				$("#content TABLE.roster.ic-Table").before(createGrid);
 				// Hide Canvas default student table
 				$("#content TABLE.roster.ic-Table").addClass("hide");
@@ -77,6 +85,8 @@ $(document).ready(function () {
 				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "(Photos viewable on-campus or via VPN)");
 				// Remove Link: Hide Names
 				$("#wms_roster_toggle_names").text("").prop("title", "");
+				// Remove shuffle link
+                $("#wms_roster_shuffle").text("").prop("title", "");
 				// Remove grid from DOM
 				$("#wms_roster_grid").remove();
 				// Restore Canvas default student table
@@ -164,6 +174,28 @@ $(document).ready(function () {
 	}
 
 	// END OF FUNCTION: scalePage()
+
+
+    // Plugin taken from http://stackoverflow.com/questions/1533910/randomize-a-sequence-of-div-elements-with-jquery
+    // Randomize the elements of a responsive grid
+	// TODO: Separate out the plugin and figure out how to add the extra file
+    (function($) {
+
+        $.fn.randomize = function(selector){
+            (selector ? this.find(selector) : this).parent().each(function(){
+                $(this).children(selector).sort(function(){
+                    return Math.random() - 0.5;
+                }).detach().appendTo(this);
+            });
+
+            return this;
+        };
+
+
+    })(jQuery);
+    //End plugin
+
+
 
 	// Url must match this pattern (Do not display "Presenter View" link on pages that display LTI iframes)
 	if (!window.location.href.match(/\/external_tools/ig)) {
