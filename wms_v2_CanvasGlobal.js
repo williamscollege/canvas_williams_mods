@@ -179,9 +179,9 @@ $(document).ready(function () {
 	// END OF FUNCTION: scalePage()
 
 
-    // Plugin taken from http://stackoverflow.com/questions/1533910/randomize-a-sequence-of-div-elements-with-jquery
+    // Plugin taken from http://stackoverflow.com/questions/1533910/randomize-a-sequence-of-div-elements-with-jquery, credit http://stackoverflow.com/users/1216718/gruppler
     // Randomize the elements of a responsive grid
-	// TODO: Figure out jquery plugins
+	// TODO: Figure out jquery plugins with Canvas
     (function($) {
 
         $.fn.randomize = function(selector){
