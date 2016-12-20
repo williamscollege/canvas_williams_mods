@@ -10,7 +10,7 @@ $(document).ready(function () {
 		$(document).ajaxComplete(function () {
 			if ($("#wms_roster_btn_learning").length == 0) {
                 // Insert the Learning Mode button
-                $("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a>&nbsp;&nbsp;<a href="#" id="wms_roster_shuffle" title=""></a><br /><br /></div>');
+                $("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a>&nbsp;&nbsp;<span class="hide" id="wms_shuffle_delimiter">|&nbsp;&nbsp;</span><a href="#" id="wms_roster_shuffle" title=""></a><br /><br /></div>');
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
 				$("#addUsers").click(function (evt) {
 					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
@@ -69,6 +69,7 @@ $(document).ready(function () {
 				createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
 
                 // Add the shuffle hyperlink
+				$("#wms_shuffle_delimiter").removeClass("hide");
                 $("#wms_roster_shuffle").text("Shuffle").prop("title", "Reorder the roster");
                 $("a#wms_roster_shuffle").click(function() {
                     //shuffle the grid elements
@@ -85,6 +86,8 @@ $(document).ready(function () {
 				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "(Photos viewable on-campus or via VPN)");
 				// Remove Link: Hide Names
 				$("#wms_roster_toggle_names").text("").prop("title", "");
+				// Remove shuffle delimiter
+				$("#wms_shuffle_delimiter").addClass("hide");
 				// Remove shuffle link
                 $("#wms_roster_shuffle").text("").prop("title", "");
 				// Remove grid from DOM
@@ -178,7 +181,7 @@ $(document).ready(function () {
 
     // Plugin taken from http://stackoverflow.com/questions/1533910/randomize-a-sequence-of-div-elements-with-jquery
     // Randomize the elements of a responsive grid
-	// TODO: Separate out the plugin and figure out how to add the extra file
+	// TODO: Figure out jquery plugins
     (function($) {
 
         $.fn.randomize = function(selector){
