@@ -290,7 +290,7 @@ $(document).ready(function () {
 	$("FOOTER.ic-app-footer").addClass("wmsFooterLine");
 
 	// Navigation: Add 'Signup Sheets' to Account Level
-	$("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="https://glow.williams.edu/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
+	$("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
 
 
 	/***********************************************
