@@ -238,7 +238,7 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Customize UI: LOGIN PAGE
 	 ***********************************************/
-	if (window.location.href.match(/\/login\/ldap/ig)) {
+	if (window.location.href.match(/\/login\/ldap/ig) || window.location.href.match(/\/login\/canvas/ig) || window.location.href.match(/\/login/ig)) {
 		// change title of page (formerly: Log In to Canvas)
 		$(document).attr('title', 'Glow');
 
