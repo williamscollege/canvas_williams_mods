@@ -263,6 +263,11 @@ P#wms-login-footer A {
 	margin-top: 15px !important;
 }
 
+/*hide Canvas branding on new mobile UX*/
+.mobileLogin-Header {
+	background-image: none;
+}
+
 /**********************************************
 ** Customize UI: INTERNAL PAGES
 **********************************************/
