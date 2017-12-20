@@ -9,13 +9,14 @@
 .wms_roster_user {
 	float: left;
 	width: 124px;
-	height: 180px;
+	height: 210px;
 	margin-right: 8px;
 	margin-bottom: 8px;
 	border: 1px solid #CCCCCC;
 	background-color: #F8FAFB;
 	color: #333333;
 	padding: 4px;
+	position: relative;
 }
 
 .wms_roster_user A.avatar {
@@ -49,6 +50,15 @@
 	A.roster_user_name[href]:after {
 		content: "";
 	}
+}
+
+.wms_wso_link {
+	text-align: right;
+	text-decoration: underline;
+	position: absolute;
+	bottom: 4px;
+	right: 0;
+	margin-top: 10px;
 }
 
 /**********************************************
