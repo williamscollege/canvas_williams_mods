@@ -39,6 +39,16 @@
 	outline: 0;
 }
 
+.wms_wso_link {
+	text-align: right;
+	text-decoration: underline;
+	position: absolute;
+	bottom: 4px;
+	right: 0;
+	margin-top: 10px;
+}
+
+
 @media print {
 	/*Force Canvas avatar background-images to show when printed*/
 	/*Works for webkit browsers like Chrome and Safari; no hack available for FF or IE*/
@@ -48,18 +58,14 @@
 
 	/*Remove urls from print mode Canvas avatar background-images to show when printed*/
 	A.roster_user_name[href]:after {
-		content: "";
+			 content: "";
+		 }
+
+	.wms_wso_link {
+		display: none;
 	}
 }
 
-.wms_wso_link {
-	text-align: right;
-	text-decoration: underline;
-	position: absolute;
-	bottom: 4px;
-	right: 0;
-	margin-top: 10px;
-}
 
 /**********************************************
 ** Add Presenter View (zoom main div; hide all other columns)
