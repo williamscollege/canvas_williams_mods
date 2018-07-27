@@ -329,31 +329,6 @@ $(document).ready(function () {
 	 ga('create', 'UA-10912569-3', 'auto');
 	 ga('send', 'pageview');
 
-    fixGlobalNavURL();
+    //fixGlobalNavURL();
 
 }); // END OF: (document).ready
-
-var fixGlobalNavURL = function() {
-    function onElementRendered(selector, cb, _attempts) {
-        var el = $(selector);
-        _attempts = ++_attempts || 1;
-        if (el.length) return cb(el);
-        if (_attempts == 100) return;
-        setTimeout(function () {
-            onElementRendered(selector, cb, _attempts);
-        }, 50);
-    }
-
-    if (ENV['current_user_roles'].indexOf('admin') > -1 ) {
-        // START - Change URL of WMS Resour LTI
-
-        onElementRendered('#context_external_tool_132_menu_item', function () {
-            global_nav_link = document.querySelector("#context_external_tool_132_menu_item > a").href;
-
-            if (global_nav_link === "https://jperkins.instructure.com/accounts/1/external_tools/132?launch_type=global_navigation") {
-                var portal_link = $('<li id="context_external_tool_132_menu_item" class="menu-item ic-app-header__menu-list-item"> <a class="ic-app-header__menu-list-link" target="_blank" rel="noopener noreferrer" href="https://www.canvas.net"> <svg version="1.1" class="ic-icon-svg ic-icon-svg--lti menu-item__icon" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 64 64"> <path d="M23.5,58.83H5.5a4.48,4.48,0,0,1-4.4-4.54V5.53A4.47,4.47,0,0,1,5.5,1H51.32a4.48,4.48,0,0,1,4.4,4.54V24h-4.4V5.53L5.5,5.39v48.9l18,.14v4.4ZM11.84,11.68H42.79v4.4H11.84v-4.4Zm0,10.69H36.79v4.4H11.84Zm0,10.69H28.59v4.4H11.84Zm0,10.69H28.59v4.4H11.84ZM62.76,56.52,56.1,44.11a12.57,12.57,0,1,0-22.94,0L26.39,56.37A1.14,1.14,0,0,0,27.64,58l5.74-1.3,1.94,5.48a1.15,1.15,0,0,0,1,.76h.09a1.14,1.14,0,0,0,1-.6l5.92-10.93a11.63,11.63,0,0,0,1.25.13c.39,0,.76-.08,1.15-.11l6,11a1.12,1.12,0,0,0,1,.6h.09a1.15,1.15,0,0,0,1-.74l2-5.46,5.73,1.33a1.15,1.15,0,0,0,1.28-1.65ZM36.35,55l-.71-2a.56.56,0,0,0-.67-.37l-2.13.48,3-5.42A12.24,12.24,0,0,0,39.12,50Zm8.23-8a8,8,0,1,1,8.05-8A8,8,0,0,1,44.58,47Zm9.84,6.5a.68.68,0,0,0-.79.43l-.85,2.38-3.23-5.95a14.76,14.76,0,0,0,3.85-2.7l3.54,6.41Z&quot; transform=&quot;translate(-1.1 -1)"></path> </svg> <div class="menu-item__text"> PD Catalog </div></a></li>');
-                $('#context_external_tool_132_menu_item').replaceWith(portal_link); //
-            }
-        });
-    }
-};
