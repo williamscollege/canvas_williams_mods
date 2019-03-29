@@ -251,9 +251,11 @@ $(document).ready(function () {
 		$("#login_forgot_password").text("Forgot password?");
 
 		// add tabindex attributes
+		/****
 		$("#login_form INPUT#pseudonym_session_unique_id").prop('placeholder', 'Username').prop('tabindex', '1');
 		$("#login_form INPUT#pseudonym_session_password").prop('placeholder', 'Password').prop('tabindex', '2');
 		$("#login_form BUTTON.Button--login").prop('tabindex', '3');
+		 ****/
 
 		// center the two input boxes using Canvas specific style
 		var controlName = $("#login_form > .ic-Form-control--login");

@@ -160,12 +160,11 @@
 	margin: 0 auto !important;
 }
 
-/****
-Remove to expose the upload labels and the announcement audience choices 
-.ic-Label {
+
+/** Adjusted to expose the upload labels and the announcement audience choices **/
+#login_form label {
 	display: none !important;
 }
-****/
 
 #login_form INPUT#pseudonym_session_unique_id, #login_form INPUT#pseudonym_session_password {
 	width: 235px !important;
