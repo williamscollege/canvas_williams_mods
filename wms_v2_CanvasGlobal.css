@@ -124,7 +124,7 @@
 	background: #FFFFFF url("https://apps.williams.edu/glow/images/custom-login-image.jpg") no-repeat center top / 1140px 400px !important;
 	margin: 0 auto !important;
 	width: 1140px !important;
-	height: 675px !important;
+	/** height: 675px !important; **/
 }
 
 .ic-Login__container {
@@ -160,9 +160,12 @@
 	margin: 0 auto !important;
 }
 
+/****
+Remove to expose the upload labels and the announcement audience choices 
 .ic-Label {
 	display: none !important;
 }
+****/
 
 #login_form INPUT#pseudonym_session_unique_id, #login_form INPUT#pseudonym_session_password {
 	width: 235px !important;
@@ -341,3 +344,12 @@ a.context_external_tool_470486 {
 }
 
 **/
+
+/****************
+Hide course navigation for CPH Test
+ */
+@media only screen and (min-width: 600px) {
+	a[title='CPH Test']{
+		display: none!important
+	}
+}

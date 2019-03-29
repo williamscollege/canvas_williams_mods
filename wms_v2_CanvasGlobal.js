@@ -8,11 +8,11 @@ $(document).ready(function () {
 	if (window.location.href.match(/\/courses\/\d+\/users/ig)) {
 		// Listen for completion of all AJAX calls, then insert the Learning Mode button
 		$(document).ajaxComplete(function () {
-			if ($("#wms_roster_btn_learning").length == 0) {
+			if ($("#wms_roster_btn_learning").length === 0) {
                 // Insert the Learning Mode button
                 $("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a>&nbsp;&nbsp;<span class="hide" id="wms_shuffle_delimiter">|&nbsp;&nbsp;</span><a href="#" id="wms_roster_shuffle" title=""></a><br /><br /></div>');
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
-				$("#addUsers").click(function (evt) {
+				$("#addUsers").click(function () {
 					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
 					$("#user_list_textarea").prop("placeholder", "Examples: pleia, ob1@williams.edu");
 				});
@@ -23,7 +23,7 @@ $(document).ready(function () {
 			}
 
 			// Toggle: Learning Mode button
-			$("#wms_roster_btn_learning").toggle(function (event) {
+			$("#wms_roster_btn_learning").toggle(function () {
 
 				// Turn learning mode: ON
 				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Return to List");
@@ -32,7 +32,7 @@ $(document).ready(function () {
 				$("#wms_roster_toggle_names").text("Turn Learning Mode On").prop("title", "Hide names");
 
 				// Toggle: Names hyperlink
-				$("#wms_roster_toggle_names").toggle(function (event) {
+				$("#wms_roster_toggle_names").toggle(function () {
 					// Hide the name/role
 					$("#wms_roster_toggle_names").text("Turn Learning Mode Off").prop("title", "Show names");
 					$(".wms_roster_user small").addClass("hide");
@@ -57,7 +57,7 @@ $(document).ready(function () {
 				// Create array to copy desired contents
 				var createGrid = "";
 				var extractHTMLObjects = $("#content TABLE.roster.ic-Table TBODY TR.rosterUser");
-				$.each(extractHTMLObjects, function (index, value) {
+				$.each(extractHTMLObjects, function () {
 					// console.log(index + "/" + $(value).html()); // produces: 5/[object HTMLTableCellElement]
 					var img = $(this).find('td:nth-child(1)').html();
 					var name = $(this).find('td:nth-child(2)').html();
@@ -118,7 +118,7 @@ $(document).ready(function () {
 	function scalePage(minWidth) {
 
 		//Check parameters
-		if (minWidth == "") {
+		if (minWidth === "") {
 			console.log("minWidth not defined. Exiting");
 			return;
 		}
@@ -212,12 +212,12 @@ $(document).ready(function () {
 	}
 
 	// Exit Presenter View: reload page
-	$("#wms_presenter_exit_btn").click(function (evt) {
+	$("#wms_presenter_exit_btn").click(function () {
 		location.reload();
 	});
 
 	// Enable Presenter View
-	$("#wms_presenter_breadcrumb").click(function (evt) {
+	$("#wms_presenter_breadcrumb").click(function () {
 		// hide breadcrumb link and all unnecessary page elements
 		$("BODY").removeClass("course-menu-expanded");
 		$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
@@ -305,7 +305,7 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-	if (!window.location.href.match(/\/login\/ldap/ig) && !window.location.href.match(/\/enroll/ig)) {
+	if (!window.location.href.match(/\/login\/ldap/ig) && !window.location.href.match(/\/enroll/ig) && !window.location.href.match(/\/login\/canvas/ig)) {
 		// Internal pages only: add custom footer link
 		$("footer").append('<div class="ic-app-footer__links"><a href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" title="Williams policy on recording and distribution of course materials" target="_blank">Williams policy on recording and distribution of course materials</a></div>');
 	}
@@ -330,5 +330,7 @@ $(document).ready(function () {
 	 ga('send', 'pageview');
 
     //fixGlobalNavURL();
+    //var Get_Name = ENV.current_user;
+    //console.log(Get_Name); // For testing purpose
 
 }); // END OF: (document).ready
