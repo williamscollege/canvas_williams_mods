@@ -114,6 +114,12 @@
 /**********************************************
 ** Customize UI: LOGIN PAGE
 **********************************************/
+
+/*********************************************
+Tested the accessibility of the color contrast of #666666 on white and it works, so these warnings can be safely ignored.
+ */
+
+
 /*remove Canvas gradient*/
 .ic-Login-Body {
 	background: none no-repeat #F0F0F0 !important;
@@ -162,7 +168,7 @@
 }
 
 
-/** Adjusted to expose the upload labels and the announcement audience choices **/
+/** Adjusted to expose the upload labels and the announcement audience choices for accessibility **/
 #login_form label {
 	/* display: none !important; */
 }
