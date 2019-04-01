@@ -248,14 +248,7 @@ $(document).ready(function () {
 		$(document).attr('title', 'Glow');
 
 		// change labels/text
-		$("#login_forgot_password").text("Forgot password?");
-
-		// add tabindex attributes
-		/****
-		$("#login_form INPUT#pseudonym_session_unique_id").prop('placeholder', 'Username').prop('tabindex', '1');
-		$("#login_form INPUT#pseudonym_session_password").prop('placeholder', 'Password').prop('tabindex', '2');
-		$("#login_form BUTTON.Button--login").prop('tabindex', '3');
-		 ****/
+		$("#login_forgot_password").text("Forgot password?")
 
 		// center the two input boxes using Canvas specific style
 		var controlName = $("#login_form > .ic-Form-control--login");
@@ -263,11 +256,15 @@ $(document).ready(function () {
 			controlName.slice(i, i + 2).wrapAll('<div class="ic-Multi-input">');
 		}
 
+		$('img.broken-image').attr('alt', 'broken image');
+		$('img.hidden-readable').attr('alt', 'broken image');
+
+
 		// custom footer links (only on login page)
-		$("#footer").append(
+		$("div.ic-Login__body").append(
 			'<p id="wms-login-footer">' +
-			'<a class="hint-text" style="font-size: 115%;" href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
-			'<a class="hint-text" href="http://oit.williams.edu/itech/glow/" target="_blank" title="Glow Help">Glow Help</a>' +
+			'<a href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
+			'<a href="http://oit.williams.edu/itech/glow/" target="_blank" title="Glow Help">Glow Help</a>' +
 			'</p>'
 		);
 

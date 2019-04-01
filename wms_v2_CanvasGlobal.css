@@ -154,6 +154,7 @@
 #login_form, #login_form A, #login_form LABEL {
 	color: #666666 !important;
 	font-size: 96% !important;
+	font-weight: normal;
 }
 
 #login_form .ic-Form-control--login {
@@ -163,7 +164,7 @@
 
 /** Adjusted to expose the upload labels and the announcement audience choices **/
 #login_form label {
-	display: none !important;
+	/* display: none !important; */
 }
 
 #login_form INPUT#pseudonym_session_unique_id, #login_form INPUT#pseudonym_session_password {
