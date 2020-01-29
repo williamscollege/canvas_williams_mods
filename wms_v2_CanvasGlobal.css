@@ -293,6 +293,8 @@ P#wms-login-footer A {
 	background-image: none;
 }
 
+
+
 /**********************************************
 ** Customize UI: INTERNAL PAGES
 **********************************************/
@@ -324,6 +326,10 @@ LI A#global_nav_conversations_link {
 	margin: 0 !important;
 	padding-left: 24px;
 	padding-right: 24px;
+}
+
+#wms_presenter_breadcrumb > a > i {
+
 }
 
 /**********************************************
@@ -358,4 +364,14 @@ Hide course navigation for CPH Test
 	a[title='CPH Test']{
 		display: none!important
 	}
+}
+
+/**************************
+
+Customize the slide out on the student roster
+
+***************************/
+
+.StudentContextTray-Header__Actions {
+	display: none;
 }
