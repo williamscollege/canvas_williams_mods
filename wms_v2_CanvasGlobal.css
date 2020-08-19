@@ -9,7 +9,7 @@
 .wms_roster_user {
 	float: left;
 	width: 124px;
-	height: 210px;
+	/* height: 210px; */
 	margin-right: 8px;
 	margin-bottom: 8px;
 	border: 1px solid #CCCCCC;

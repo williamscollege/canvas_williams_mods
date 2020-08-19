@@ -63,12 +63,12 @@ $(document).ready(function () {
 					var name = $(this).find('td:nth-child(2)').html();
 					var unixId = $.trim($(this).find ('td:nth-child(3)').text());
 					var role = $(this).find('td:nth-child(6)').text();
-                    var linkToWOC = '<br /><small><div class ="wms_wso_link"><a href="https://wso.williams.edu/facebook?subsearch=1&search='+unixId+'&commit=Search" class="external" target="_blank" ><span>More about '+unixId+'</span><span class="ui-icon ui-icon-extlink ui-icon-inline" title="Links to an external site."><span class="screenreader-only">Links to an external site.</span></a></small></div>';
+                    // var linkToWOC = '<br /><small><div class ="wms_wso_link"><a href="https://wso.williams.edu/facebook?subsearch=1&search='+unixId+'&commit=Search" class="external" target="_blank" ><span>More about '+unixId+'</span><span class="ui-icon ui-icon-extlink ui-icon-inline" title="Links to an external site."><span class="screenreader-only">Links to an external site.</span></a></small></div>';
 
 
                     // console.log(linkToWOC);
 
-					var user_info = img + "<small class=\"\">" + name + "</small><br /><small class=\"\">" + role + "</small>" + linkToWOC;
+					var user_info = img + "<small class=\"\">" + name + "</small><br /><small class=\"\">" + role + "</small>";
 					createGrid += "<div class=\"wms_roster_user\">" + user_info + "</div>";
 				});
 				createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
