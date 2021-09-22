@@ -229,7 +229,7 @@ $(document).ready(function () {
 		$("#wrapper-container").addClass("wmsMarginZero");
 		$(".ic-app-main-layout-horizontal").addClass("wmsMarginZero");
 		// force all images to zoom correctly and avoid cutting off images; requires removing the default style: IMG{max-width:1050px}
-		$("IMG").css("cssText", "max-width: 100% !important;");
+		// $("IMG").css("cssText", "max-width: 100% !important;");
 
 		// do scale function
 		scalePage(900); // set somewhat arbitrary hardcoded minWidth value
@@ -294,7 +294,7 @@ $(document).ready(function () {
 	$("FOOTER.ic-app-footer").addClass("wmsFooterLine");
 
 	// Navigation: Add 'Signup Sheets' to Account Level
-	$("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
+	// $("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
 
 	// Navigation to add 'Williams Resources' to the account level
     // After installing the LTI, correct the tool link based on the user menu
