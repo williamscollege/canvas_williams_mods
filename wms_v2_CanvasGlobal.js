@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-	/***********************************************
+    /***********************************************
 	 ** People: Add Face Book and Learning Mode
 	 ***********************************************/
 
@@ -8,11 +8,11 @@ $(document).ready(function () {
 	if (window.location.href.match(/\/courses\/\d+\/users/ig)) {
 		// Listen for completion of all AJAX calls, then insert the Learning Mode button
 		$(document).ajaxComplete(function () {
-			if ($("#wms_roster_btn_learning").length == 0) {
-				// Insert the Learning Mode button
-				$("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a><br /><br /></div>');
+			if ($("#wms_roster_btn_learning").length === 0) {
+                // Insert the Learning Mode button
+                $("#content TABLE.roster.ic-Table").before('<div id="wms_roster_controls"><button id="wms_roster_btn_learning" class="btn btn-small" title="(Photos viewable on-campus or via VPN)"><i class="icon-user"></i> Show Face Book</button>&nbsp;&nbsp;<a href="#" id="wms_roster_toggle_names" title=""></a>&nbsp;&nbsp;<span class="hide" id="wms_shuffle_delimiter">|&nbsp;&nbsp;</span><a href="#" id="wms_roster_shuffle" title=""></a><br /><br /></div>');
 				// Provide custom instructions for the "Add People" modal dialog (careful: modal is not initially in DOM; it is created on the fly by Canvas)
-				$("#addUsers").click(function (evt) {
+				$("#addUsers").click(function () {
 					$("#create-users-step-1 p").text("Enter Unix names or Williams short email addresses, separated by commas.");
 					$("#user_list_textarea").prop("placeholder", "Examples: pleia, ob1@williams.edu");
 				});
@@ -23,7 +23,7 @@ $(document).ready(function () {
 			}
 
 			// Toggle: Learning Mode button
-			$("#wms_roster_btn_learning").toggle(function (event) {
+			$("#wms_roster_btn_learning").toggle(function () {
 
 				// Turn learning mode: ON
 				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Return to List");
@@ -32,7 +32,7 @@ $(document).ready(function () {
 				$("#wms_roster_toggle_names").text("Turn Learning Mode On").prop("title", "Hide names");
 
 				// Toggle: Names hyperlink
-				$("#wms_roster_toggle_names").toggle(function (event) {
+				$("#wms_roster_toggle_names").toggle(function () {
 					// Hide the name/role
 					$("#wms_roster_toggle_names").text("Turn Learning Mode Off").prop("title", "Show names");
 					$(".wms_roster_user small").addClass("hide");
@@ -57,18 +57,32 @@ $(document).ready(function () {
 				// Create array to copy desired contents
 				var createGrid = "";
 				var extractHTMLObjects = $("#content TABLE.roster.ic-Table TBODY TR.rosterUser");
-				$.each(extractHTMLObjects, function (index, value) {
+				$.each(extractHTMLObjects, function () {
 					// console.log(index + "/" + $(value).html()); // produces: 5/[object HTMLTableCellElement]
 					var img = $(this).find('td:nth-child(1)').html();
 					var name = $(this).find('td:nth-child(2)').html();
+					var unixId = $.trim($(this).find ('td:nth-child(3)').text());
 					var role = $(this).find('td:nth-child(6)').text();
+                    // var linkToWOC = '<br /><small><div class ="wms_wso_link"><a href="https://wso.williams.edu/facebook?subsearch=1&search='+unixId+'&commit=Search" class="external" target="_blank" ><span>More about '+unixId+'</span><span class="ui-icon ui-icon-extlink ui-icon-inline" title="Links to an external site."><span class="screenreader-only">Links to an external site.</span></a></small></div>';
+
+
+                    // console.log(linkToWOC);
 
 					var user_info = img + "<small class=\"\">" + name + "</small><br /><small class=\"\">" + role + "</small>";
 					createGrid += "<div class=\"wms_roster_user\">" + user_info + "</div>";
 				});
 				createGrid = "<div id=\"wms_roster_grid\">" + createGrid + "</div>";
 
-				// Display grid (add it to DOM)
+                // Add the shuffle hyperlink
+				$("#wms_shuffle_delimiter").removeClass("hide");
+                $("#wms_roster_shuffle").text("Shuffle").prop("title", "Reorder the roster");
+                $("a#wms_roster_shuffle").click(function() {
+                    //shuffle the grid elements
+                    $("div#wms_roster_grid").randomize("div.wms_roster_user");
+					});
+
+
+                // Display grid (add it to DOM)
 				$("#content TABLE.roster.ic-Table").before(createGrid);
 				// Hide Canvas default student table
 				$("#content TABLE.roster.ic-Table").addClass("hide");
@@ -77,6 +91,10 @@ $(document).ready(function () {
 				$("#wms_roster_btn_learning").html("<i class=\"icon-user\"></i> Show Face Book").prop("title", "(Photos viewable on-campus or via VPN)");
 				// Remove Link: Hide Names
 				$("#wms_roster_toggle_names").text("").prop("title", "");
+				// Remove shuffle delimiter
+				$("#wms_shuffle_delimiter").addClass("hide");
+				// Remove shuffle link
+                $("#wms_roster_shuffle").text("").prop("title", "");
 				// Remove grid from DOM
 				$("#wms_roster_grid").remove();
 				// Restore Canvas default student table
@@ -100,7 +118,7 @@ $(document).ready(function () {
 	function scalePage(minWidth) {
 
 		//Check parameters
-		if (minWidth == "") {
+		if (minWidth === "") {
 			console.log("minWidth not defined. Exiting");
 			return;
 		}
@@ -165,19 +183,41 @@ $(document).ready(function () {
 
 	// END OF FUNCTION: scalePage()
 
+
+    // Plugin taken from http://stackoverflow.com/questions/1533910/randomize-a-sequence-of-div-elements-with-jquery, credit http://stackoverflow.com/users/1216718/gruppler
+    // Randomize the elements of a responsive grid
+	// TODO: Figure out jquery plugins with Canvas
+    (function($) {
+
+        $.fn.randomize = function(selector){
+            (selector ? this.find(selector) : this).parent().each(function(){
+                $(this).children(selector).sort(function(){
+                    return Math.random() - 0.5;
+                }).detach().appendTo(this);
+            });
+
+            return this;
+        };
+
+
+    })(jQuery);
+    //End plugin
+
+
+
 	// Url must match this pattern (Do not display "Presenter View" link on pages that display LTI iframes)
 	if (!window.location.href.match(/\/external_tools/ig)) {
-		$("NAV#breadcrumbs").after('<div id="wms_presenter_breadcrumb"><a href="#" class="btn btn-primary" title="Enable Presenter View"><i class="icon-off"></i>&nbsp;Presenter&nbsp;View</a></div>');
+		$("NAV#breadcrumbs").after('<div id="wms_presenter_breadcrumb"><a href="#" class="btn btn-primary icon-none" title="Enable Presenter View">&nbsp;Presenter&nbsp;View</a></div>');
 		$("#application").prepend('<div id="wms_presenter_exit_btn"><div id="wms_presenter_exit_text" class="wmsPresenterRotate wmsDisplayNone" title="Exit Presenter View3">Exit&nbsp;Presenter&nbsp;View</div></div>');
 	}
 
 	// Exit Presenter View: reload page
-	$("#wms_presenter_exit_btn").click(function (evt) {
+	$("#wms_presenter_exit_btn").click(function () {
 		location.reload();
 	});
 
 	// Enable Presenter View
-	$("#wms_presenter_breadcrumb").click(function (evt) {
+	$("#wms_presenter_breadcrumb").click(function () {
 		// hide breadcrumb link and all unnecessary page elements
 		$("BODY").removeClass("course-menu-expanded");
 		$("#wms_presenter_breadcrumb").addClass("wmsDisplayNone");
@@ -189,7 +229,7 @@ $(document).ready(function () {
 		$("#wrapper-container").addClass("wmsMarginZero");
 		$(".ic-app-main-layout-horizontal").addClass("wmsMarginZero");
 		// force all images to zoom correctly and avoid cutting off images; requires removing the default style: IMG{max-width:1050px}
-		$("IMG").css("cssText", "max-width: 100% !important;");
+		// $("IMG").css("cssText", "max-width: 100% !important;");
 
 		// do scale function
 		scalePage(900); // set somewhat arbitrary hardcoded minWidth value
@@ -203,17 +243,12 @@ $(document).ready(function () {
 	/***********************************************
 	 ** Customize UI: LOGIN PAGE
 	 ***********************************************/
-	if (window.location.href.match(/\/login\/ldap/ig)) {
+	if (window.location.href.match(/\/login\/ldap/ig) || window.location.href.match(/\/login\/canvas/ig) || window.location.href.match(/\/login/ig)) {
 		// change title of page (formerly: Log In to Canvas)
 		$(document).attr('title', 'Glow');
 
 		// change labels/text
 		$("#login_forgot_password").text("Forgot password?");
-
-		// add tabindex attributes
-		$("#login_form INPUT#pseudonym_session_unique_id").prop('placeholder', 'Username').prop('tabindex', '1');
-		$("#login_form INPUT#pseudonym_session_password").prop('placeholder', 'Password').prop('tabindex', '2');
-		$("#login_form BUTTON.Button--login").prop('tabindex', '3');
 
 		// center the two input boxes using Canvas specific style
 		var controlName = $("#login_form > .ic-Form-control--login");
@@ -221,11 +256,15 @@ $(document).ready(function () {
 			controlName.slice(i, i + 2).wrapAll('<div class="ic-Multi-input">');
 		}
 
+		$('img.broken-image').attr('alt', 'broken image');
+		$('img.hidden-readable').attr('alt', 'broken image');
+
+
 		// custom footer links (only on login page)
-		$("#footer").append(
+		$("div.ic-Login__body").append(
 			'<p id="wms-login-footer">' +
-			'<a class="hint-text" style="font-size: 115%;" href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
-			'<a class="hint-text" href="http://oit.williams.edu/itech/glow/" target="_blank" title="Glow Help">Glow Help</a>' +
+			'<a href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" target="_blank" title="Williams policy on recording and distribution of course materials">Williams policy on recording and distribution of course materials</a><br />' +
+			'<a href="http://oit.williams.edu/itech/glow/" target="_blank" title="Glow Help">Glow Help</a>' +
 			'</p>'
 		);
 
@@ -255,13 +294,17 @@ $(document).ready(function () {
 	$("FOOTER.ic-app-footer").addClass("wmsFooterLine");
 
 	// Navigation: Add 'Signup Sheets' to Account Level
-	$("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="https://glow.williams.edu/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
+	// $("UL#menu li:nth-child(4)").after('<li class="menu-item"><a id="wms_signup_sheets_icon" href="/users/1234567/external_tools/170518" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-signup-sheets.png" alt="Signup Sheets" title="Signup Sheets" /></div><div class="menu-item__text">Signup Sheets</div></a></li>');
+
+	// Navigation to add 'Williams Resources' to the account level
+    // After installing the LTI, correct the tool link based on the user menu
+    $("UL#menu li:nth-child(5)").after('<li class="menu-item"><a id="wms_resources_icon" href="/users/1234567/external_tools/481471" class="ic-app-header__menu-list-link"><div class="menu-item-icon-container" aria-hidden="true"><img src="https://apps.williams.edu/glow/images/icon-williams-resources.png" alt="Williams Resources" title="Williams Resources" /></div><div class="menu-item__text">Resources</div></a></li>');
 
 
 	/***********************************************
 	 ** Footer/Branding Link Overrides
 	 ***********************************************/
-	if (!window.location.href.match(/\/login\/ldap/ig) && !window.location.href.match(/\/enroll/ig)) {
+	if (!window.location.href.match(/\/login\/ldap/ig) && !window.location.href.match(/\/enroll/ig) && !window.location.href.match(/\/login\/canvas/ig)) {
 		// Internal pages only: add custom footer link
 		$("footer").append('<div class="ic-app-footer__links"><a href="https://dean.williams.edu/policies/classroom-recordings-and-use-of-class-materials/" title="Williams policy on recording and distribution of course materials" target="_blank">Williams policy on recording and distribution of course materials</a></div>');
 	}
@@ -285,5 +328,8 @@ $(document).ready(function () {
 	 ga('create', 'UA-10912569-3', 'auto');
 	 ga('send', 'pageview');
 
+    //fixGlobalNavURL();
+    //var Get_Name = ENV.current_user;
+    //console.log(Get_Name); // For testing purpose
 
 }); // END OF: (document).ready

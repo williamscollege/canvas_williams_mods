@@ -16,10 +16,11 @@
 	background-color: #F8FAFB;
 	color: #333333;
 	padding: 4px;
+	position: relative;
 }
 
-.wms_roster_user A.avatar {
-	margin: 4px auto 0px;
+.wms_roster_user .fOyUs_bGBk {
+	margin: 4px auto 0;
 	height: 110px;
 	width: 110px;
 }
@@ -38,6 +39,16 @@
 	outline: 0;
 }
 
+.wms_wso_link {
+	text-align: right;
+	text-decoration: underline;
+	position: absolute;
+	bottom: 4px;
+	right: 0;
+	margin-top: 10px;
+}
+
+
 @media print {
 	/*Force Canvas avatar background-images to show when printed*/
 	/*Works for webkit browsers like Chrome and Safari; no hack available for FF or IE*/
@@ -47,9 +58,14 @@
 
 	/*Remove urls from print mode Canvas avatar background-images to show when printed*/
 	A.roster_user_name[href]:after {
-		content: "";
+			 content: "";
+		 }
+
+	.wms_wso_link {
+		display: none;
 	}
 }
+
 
 /**********************************************
 ** Add Presenter View (zoom main div; hide all other columns)
@@ -63,14 +79,14 @@
 }
 
 .wmsMarginZero {
-	margin: 0px !important;
+	margin: 0 !important;
 }
 
 .wmsPresenterExit {
 	z-index: 1000 !important;
 	position: fixed;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	cursor: pointer;
 	background-color: #0096db;
 	border: 1px solid #006796;
@@ -98,6 +114,12 @@
 /**********************************************
 ** Customize UI: LOGIN PAGE
 **********************************************/
+
+/*********************************************
+Tested the accessibility of the color contrast of #666666 on white and it works, so these warnings can be safely ignored.
+ */
+
+
 /*remove Canvas gradient*/
 .ic-Login-Body {
 	background: none no-repeat #F0F0F0 !important;
@@ -106,9 +128,9 @@
 /*use custom logo and resize the login box*/
 .ic-Login {
 	background: #FFFFFF url("https://apps.williams.edu/glow/images/custom-login-image.jpg") no-repeat center top / 1140px 400px !important;
-	margin: 0px auto !important;
+	margin: 0 auto !important;
 	width: 1140px !important;
-	height: 660px !important;
+	/** height: 675px !important; **/
 }
 
 .ic-Login__container {
@@ -117,12 +139,12 @@
 
 .ic-Login__content {
 	width: 490px !important;
-	border: 0px none !important;
-	padding: 0px !important;
+	border: 0 none !important;
+	padding: 0 !important;
 }
 
 .ic-Login__innerContent {
-	padding: 0px !important;
+	padding: 0 !important;
 }
 
 .ic-Login__header {
@@ -131,21 +153,24 @@
 
 .ic-Login__body {
 	margin-top: 47px !important;
-	padding: 0px !important;
+	padding: 0 !important;
 }
 
 /*change: color of text, links, labels, decrease font size*/
 #login_form, #login_form A, #login_form LABEL {
 	color: #666666 !important;
 	font-size: 96% !important;
+	font-weight: normal;
 }
 
 #login_form .ic-Form-control--login {
-	margin: 0px auto !important;
+	margin: 0 auto !important;
 }
 
-.ic-Label {
-	display: none !important;
+
+/** Adjusted to expose the upload labels and the announcement audience choices for accessibility **/
+#login_form label {
+	/* display: none !important; */
 }
 
 #login_form INPUT#pseudonym_session_unique_id, #login_form INPUT#pseudonym_session_password {
@@ -183,7 +208,7 @@
 	background-color: #512698 !important;
 	border-color: #98A0A5 !important;
 	height: 42px !important;
-	margin: 2px 10px 0px -305px !important;
+	margin: 2px 10px 0 -305px !important;
 	-webkit-transition: All 0.3s ease !important;
 	-moz-transition: All 0.3s ease !important;
 	-o-transition: All 0.3s ease !important;
@@ -263,6 +288,13 @@ P#wms-login-footer A {
 	margin-top: 15px !important;
 }
 
+/*hide Canvas branding on new mobile UX*/
+.mobileLogin-Header {
+	background-image: none;
+}
+
+
+
 /**********************************************
 ** Customize UI: INTERNAL PAGES
 **********************************************/
@@ -296,10 +328,50 @@ LI A#global_nav_conversations_link {
 	padding-right: 24px;
 }
 
+#wms_presenter_breadcrumb > a > i {
+
+}
+
 /**********************************************
 ** Footer/Branding Link Overrides
 ***********************************************/
 /*Hide Canvas logo and Canvas footer links*/
 #footer A.footer-logo, #footer #footer-links {
 	display: none !important;
+}
+
+
+/************************************************
+*	Temporarily hide gradebook during course evaluation survey blackout
+.list-view>nav>ul>li>a.grades {
+	display: none;
+}
+**/
+
+/*****
+   Hide the course navigation for Resources
+
+a.context_external_tool_470486 {
+	display: none;
+}
+
+**/
+
+/****************
+Hide course navigation for CPH Test
+ */
+@media only screen and (min-width: 600px) {
+	a[title='CPH Test']{
+		display: none!important
+	}
+}
+
+/**************************
+
+Customize the slide out on the student roster
+
+***************************/
+
+.StudentContextTray-Header__Actions {
+	display: none;
 }

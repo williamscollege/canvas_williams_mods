@@ -14,6 +14,7 @@ Custom modifications for our Instructure Canvas learning management system (LMS)
 * Add Button: Automatically insert a "Face Book" button on Canvas' "People" page
 * Larger Images: Creates a grid of larger images for viewing course participants
 * Learning Mode: Optionally show/hide all participant names (useful for memorizing names)
+* Shuffle: Rearranges the display order of the visible participants (to shuffle the full roster, be sure to load all participants before selecting shuffle)
 * Printer: Enabled photos to display in print mode (works for Chrome and Safari, while FF and IE require manual clientside browser selection to "Print background images")
 * Printer: Removed hyperlink urls from displaying in print mode (All browsers)
 * Requires: Only these two JS/CSS global override files (wmsCanvasGlobal.css, wmsCanvasGlobal.js)
