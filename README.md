@@ -10,7 +10,7 @@
 ## DESCRIPTION
 Custom modifications for our Instructure Canvas learning management system (LMS). These files reflect the current Canvas UI.
 
-#### People: Add Face Book and Learning Mode
+#### PEOPLE: FACE BOOK AND LEARNING MODE
 * Add Button: Automatically insert a "Face Book" button on Canvas' "People" page
 * Larger Images: Creates a grid of larger images for viewing course participants
 * Learning Mode: Optionally show/hide all participant names (useful for memorizing names)
@@ -19,7 +19,7 @@ Custom modifications for our Instructure Canvas learning management system (LMS)
 * Requires: Only these two JS/CSS global override files (wmsCanvasGlobal.css, wmsCanvasGlobal.js)
 * Future plans: I plan to add an LTI to inject the class year into each student's info box
 
-#### Add Presenter View (zoom main div; hide all other columns)
+#### PRESENTER VIEW
 * Add Link: Automatically insert a "Presenter View" hyperlink on the right-side of the "breadcrumbs" navigation
 * Zoom: Increase scale of main (center) region to fill browser, wrapping text as needed
 * Rescale: Resize browser to dynamically increase/decrease visible aspect (zoom) ratio of text and images
@@ -27,6 +27,7 @@ Custom modifications for our Instructure Canvas learning management system (LMS)
 * Display All: Increase height dynamically to prevent zoomed page from being inappropriately cut off
 * Resolution: Set width to 900px to ensure magnification occurs in our wired classrooms
 * Exit: Easily return to "normal mode" via "exit" button on left side of screen
+* Zoom main div; hide all other columns
 * Note: Hidden content remains in the document object model, but is hidden via CSS. This means the page still functions correctly
 * Note: The "Presenter View" hyperlink will appear on the right-side of all pages that contain the breadcrumbs navigation item
 * Works with: All browsers, including mobile browsers (held in horizontal mode)
