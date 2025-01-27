@@ -9,7 +9,7 @@
 .wms_roster_user {
 	float: left;
 	width: 124px;
-	height: 180px;
+	height: 190px;
 	margin-right: 8px;
 	margin-bottom: 8px;
 	border: 1px solid #CCCCCC;
@@ -19,10 +19,16 @@
 	position: relative;
 }
 
-.wms_roster_user .fOyUs_bGBk {
-	margin: 4px auto 0;
-	height: 110px;
-	width: 110px;
+/* gcp1 add: embiggen user avatars in Face Book*/
+.wms_roster_user span {
+    width: 110px;
+    height: 110px;
+}
+
+/* gcp1 add: fix 'bleed-over' of Pending status on user card in Face Book*/
+.wms_roster_user .label {
+    border-radius: 3px;
+    max-height: 15px;
 }
 
 .wms_roster_user:hover {
@@ -52,8 +58,10 @@
 @media print {
 	/*Force Canvas avatar background-images to show when printed*/
 	/*Works for webkit browsers like Chrome and Safari; no hack available for FF or IE*/
+	/*gcp1: added print-color-adjust property 2024-07-16*/
 	A.avatar {
 		-webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
 	}
 
 	/*Remove urls from print mode Canvas avatar background-images to show when printed*/
@@ -65,7 +73,6 @@
 		display: none;
 	}
 }
-
 
 /**********************************************
 ** Add Presenter View (zoom main div; hide all other columns)
@@ -119,11 +126,10 @@
 Tested the accessibility of the color contrast of #666666 on white and it works, so these warnings can be safely ignored.
  */
 
-
 /*remove Canvas gradient*/
-.ic-Login-Body {
+/* gcp1 comment: doesn't change white bg to grey anyway... .ic-Login-Body {
 	background: none no-repeat #F0F0F0 !important;
-}
+}*/
 
 /*use custom logo and resize the login box*/
 .ic-Login {
@@ -163,17 +169,12 @@ Tested the accessibility of the color contrast of #666666 on white and it works,
 	font-weight: normal;
 }
 
-#login_form .ic-Form-control--login {
-	margin: 0 auto !important;
+/* gcp1 add: side-by-side UN/PW fields */
+.ic-Form-control--login {
+    display: inline-block;
 }
 
-
-/** Adjusted to expose the upload labels and the announcement audience choices for accessibility **/
-#login_form label {
-	/* display: none !important; */
-}
-
-#login_form INPUT#pseudonym_session_unique_id, #login_form INPUT#pseudonym_session_password {
+#pseudonym_session_unique_id, #pseudonym_session_password {
 	width: 235px !important;
 	height: 56px !important;
 	background: #EDEBE9 no-repeat !important;
@@ -184,6 +185,12 @@ Tested the accessibility of the color contrast of #666666 on white and it works,
 	font-size: 96% !important;
 }
 
+.Button--login:hover {
+	border: 1px solid #FFBE0A;
+	background-color: #500082;
+	color: #FFF;
+}
+
 .ic-Login__actions {
 	padding: 10px 0 0 5px !important;
 }
@@ -192,7 +199,7 @@ Tested the accessibility of the color contrast of #666666 on white and it works,
 	margin: -28px 0 0 0 !important;
 }
 
-.ic-Login__actions-timeout label {
+.ic-Login__actions-timeout>label {
 	margin: -13px 0 0 0 !important;
 	color: green !important;
 	vertical-align: text-top !important;
@@ -203,23 +210,8 @@ Tested the accessibility of the color contrast of #666666 on white and it works,
 	float: right !important;
 }
 
-/*login button color with gentle transition for hover action*/
-#login_form .btn-primary, #login_form .ic-Login__actions button.Button--login {
-	background-color: #512698 !important;
-	border-color: #98A0A5 !important;
-	height: 42px !important;
-	margin: 2px 10px 0 -305px !important;
-	-webkit-transition: All 0.3s ease !important;
-	-moz-transition: All 0.3s ease !important;
-	-o-transition: All 0.3s ease !important;
-	-ms-transition: All 0.3s ease !important;
-	transition: All 0.3s ease !important;
-}
-
-/*login button color on hover*/
-#login_form .btn-primary:hover, #login_form .ic-Login__actions button.Button--login:hover {
-	background-color: #8AB840 !important;
-	border-color: #98A0A5 !important;
+#login_form .ic-Form-control--login {
+    margin: 0 auto !important;
 }
 
 /*hide canvas footer links and canvas logo*/
@@ -278,11 +270,12 @@ P#wms-login-footer A {
 	background: #EDEBE9 !important;
 }
 
-/*adjust the login button (it picks up default characteristics, like bgcolor, from primary css file*/
+/*adjust the login button (it picks up default characteristics, like bgcolor, from primary css file
 #login_form.front.face BUTTON[type=submit] {
 	margin: 0 !important;
 	border: 1px solid #98A0A5 !important;
 }
+*/
 
 #login_form.front.face A.forgot-password {
 	margin-top: 15px !important;
@@ -292,8 +285,6 @@ P#wms-login-footer A {
 .mobileLogin-Header {
 	background-image: none;
 }
-
-
 
 /**********************************************
 ** Customize UI: INTERNAL PAGES
@@ -340,7 +331,6 @@ LI A#global_nav_conversations_link {
 	display: none !important;
 }
 
-
 /************************************************
 *	Temporarily hide gradebook during course evaluation survey blackout
 .list-view>nav>ul>li>a.grades {
@@ -367,9 +357,7 @@ Hide course navigation for CPH Test
 }
 
 /**************************
-
 Customize the slide out on the student roster
-
 ***************************/
 
 .StudentContextTray-Header__Actions {
